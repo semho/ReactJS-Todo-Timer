@@ -1,0 +1,84 @@
+@charset "UTF-8";
+@font-face {
+  font-display: swap;
+  font-family: 'SF UI';
+  font-weight: 700;
+  font-style: normal;
+  src: url("./fonts/SFUIText-Semibold.woff2") format("woff2"), url("./fonts/SFUIText-Semibold.woff") format("woff"); }
+
+@font-face {
+  font-display: swap;
+  font-family: 'SF UI';
+  font-weight: 400;
+  font-style: normal;
+  src: url("./fonts/SFUIDisplay-Regular.woff2") format("woff2"), url("./fonts/SFUIDisplay-Regular.woff") format("woff"); }
+
+@font-face {
+  font-display: swap;
+  font-family: 'SF UI';
+  font-weight: 300;
+  font-style: normal;
+  src: url("./fonts/SFUIDisplay-Light.woff2") format("woff2"), url("./fonts/SFUIDisplay-Light.woff") format("woff"); }
+
+@font-face {
+  font-display: swap;
+  font-family: 'SF UI';
+  font-weight: 200;
+  font-style: normal;
+  src: url("./fonts/SFUIDisplay-Ultralight.woff2") format("woff2"), url("./fonts/SFUIDisplay-Ultralight.woff") format("woff"); }
+
+:root {
+  --black:          #333333;
+  --beige:          #FFDDA9;
+  --lilac:          #DFDCFE;
+  --turquoise:      #C5F1FF;
+  --green:          #A8B64F;
+  --tomato:         #DC3E22;
+  --tomatoMid:      #EE735D;
+  --tomatoLight:    #EA8979;
+  --tomatoHight:    #B7280F;
+  --whiteLightness: 100%;
+  --white:          hsl(0, 0%, var(--whiteLightness));
+  --grayF4:         hsl(0, 0%, calc(var(--whiteLightness) - 4%));
+  --greyF3:         hsl(0, 0%, calc(var(--whiteLightness) - 5%));
+  --greyEC:         hsl(0, 0%, calc(var(--whiteLightness) - 7%));
+  --greyD9:         hsl(0, 0%, calc(var(--whiteLightness) - 15%));
+  --greyC4:         hsl(0, 0%, calc(var(--whiteLightness) - 23%));
+  --grey99:         hsl(0, 0%, calc(var(--whiteLightness) - 40%));
+  --grey66:         hsl(0, 0%, calc(var(--whiteLightness) - 60%));
+
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: var(--white);
+  font-size: 16px;
+  line-height: 33px;
+  font-family: 'SF UI';
+  font-weight: 400;
+}
+
+* {
+  color: var(--black);
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
