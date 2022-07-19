@@ -1,0 +1,8 @@
+.app__content {
+  padding-top: 100px;
+}
+
+.content__container {
+  display: flex;
+  justify-content: space-between;
+}

@@ -9,6 +9,13 @@
 @font-face {
   font-display: swap;
   font-family: 'SF UI';
+  font-weight: 500;
+  font-style: normal;
+  src: url("./fonts/SFUIDisplay-Medium.woff2") format("woff2"), url("./fonts/SFUIDisplay-Medium.woff") format("woff"); }
+
+@font-face {
+  font-display: swap;
+  font-family: 'SF UI';
   font-weight: 400;
   font-style: normal;
   src: url("./fonts/SFUIDisplay-Regular.woff2") format("woff2"), url("./fonts/SFUIDisplay-Regular.woff") format("woff"); }
@@ -33,6 +40,7 @@
   --lilac:          #DFDCFE;
   --turquoise:      #C5F1FF;
   --green:          #A8B64F;
+  --greenHover:     #899441;
   --tomato:         #DC3E22;
   --tomatoMid:      #EE735D;
   --tomatoLight:    #EA8979;
@@ -46,7 +54,6 @@
   --greyC4:         hsl(0, 0%, calc(var(--whiteLightness) - 23%));
   --grey99:         hsl(0, 0%, calc(var(--whiteLightness) - 40%));
   --grey66:         hsl(0, 0%, calc(var(--whiteLightness) - 60%));
-
 }
 
 body {

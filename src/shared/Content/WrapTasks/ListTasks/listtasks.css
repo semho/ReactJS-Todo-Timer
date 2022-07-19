@@ -1,0 +1,18 @@
+.list-tasks__list {
+  padding-left: 0;
+}
+
+.item-task {
+  border-bottom: 1px solid var(--grayF4);
+}
+
+.item-task:first-child {
+  border-top: 1px solid var(--grayF4);
+}
+
+.item-task__wrap {
+  padding-top: 19px;
+  padding-bottom: 19px;
+  font-weight: 300;
+  line-height: 17px;
+}

@@ -1,0 +1,25 @@
+.wrap-tasks__manual {
+  margin-bottom: 9px;
+}
+
+.wrap-tasks__title {
+  margin-bottom: 2px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 33px;
+}
+
+.wrap-tasks__list-manual {
+  padding-left: 19px;
+  list-style: disc;
+}
+
+.list-manual__item {
+  padding-left: 5px;
+  line-height: 33px;
+}
+
+.list-manual__item::marker {
+  font-size: 15px;
+  color: var(--tomatoHight);
+}
