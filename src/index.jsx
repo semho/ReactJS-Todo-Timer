@@ -9,10 +9,13 @@ import registerServiceWorker from 'react-service-worker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 //для 18 версии react инициализация приложения поменялась
-const rootElement =
-document.getElementById('root');
-const root =
-createRoot(rootElement);
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement);
+
+//вставляем элемент в DOM для портала
+const div = document.createElement('div');
+div.setAttribute('id', 'dropdown_root');
+document.body.appendChild(div);
 
 const render = (Component) => {
   root.render(
@@ -25,5 +28,3 @@ const render = (Component) => {
 registerServiceWorker();
 
 render(App);
-
-

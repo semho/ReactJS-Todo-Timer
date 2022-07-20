@@ -1,6 +1,6 @@
 import './App.css';
 import '../../main.global.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Layout } from '../Layout';
 import { hot } from 'react-hot-loader/root';
 import { setConfig } from 'react-hot-loader';
@@ -16,11 +16,10 @@ import { ListTasks } from '../Content/WrapTasks/ListTasks';
 // });
 //отключаем предупреждения hot-loader о том, что он хочет свой пакет вместо стандартного react-dom
 setConfig({
-  showReactDomPatchNotification: false
-})
+  showReactDomPatchNotification: false,
+});
 
 const App = () => {
-
   return (
     <Layout>
       <Header />
@@ -35,4 +34,5 @@ const App = () => {
   );
 };
 
-export default process.env.NODE_ENV === "development" ? hot(App) : App;
+// export default process.env.NODE_ENV === 'development' ? hot(App) : App;
+export default App;
