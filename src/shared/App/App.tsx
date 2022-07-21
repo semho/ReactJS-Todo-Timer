@@ -10,6 +10,7 @@ import { WrapTasks } from '../Content/WrapTasks';
 import { Manual } from '../Content/WrapTasks/Manual';
 import { FormTasks } from '../Content/WrapTasks/FormTasks';
 import { ListTasks } from '../Content/WrapTasks/ListTasks';
+import { Timer } from '../Content/Timer';
 //отключить перезагрузку хуков в hot-loader
 // setConfig({
 //   reloadHooks: false,
@@ -29,6 +30,7 @@ const App = () => {
           <FormTasks />
           <ListTasks />
         </WrapTasks>
+        <Timer />
       </Content>
     </Layout>
   );

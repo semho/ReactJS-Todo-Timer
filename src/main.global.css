@@ -4,57 +4,67 @@
   font-family: 'SF UI';
   font-weight: 700;
   font-style: normal;
-  src: url("./fonts/SFUIText-Semibold.woff2") format("woff2"), url("./fonts/SFUIText-Semibold.woff") format("woff"); }
+  src: url('./fonts/SFUIText-Semibold.woff2') format('woff2'),
+    url('./fonts/SFUIText-Semibold.woff') format('woff');
+}
 
 @font-face {
   font-display: swap;
   font-family: 'SF UI';
   font-weight: 500;
   font-style: normal;
-  src: url("./fonts/SFUIDisplay-Medium.woff2") format("woff2"), url("./fonts/SFUIDisplay-Medium.woff") format("woff"); }
+  src: url('./fonts/SFUIDisplay-Medium.woff2') format('woff2'),
+    url('./fonts/SFUIDisplay-Medium.woff') format('woff');
+}
 
 @font-face {
   font-display: swap;
   font-family: 'SF UI';
   font-weight: 400;
   font-style: normal;
-  src: url("./fonts/SFUIDisplay-Regular.woff2") format("woff2"), url("./fonts/SFUIDisplay-Regular.woff") format("woff"); }
+  src: url('./fonts/SFUIDisplay-Regular.woff2') format('woff2'),
+    url('./fonts/SFUIDisplay-Regular.woff') format('woff');
+}
 
 @font-face {
   font-display: swap;
   font-family: 'SF UI';
   font-weight: 300;
   font-style: normal;
-  src: url("./fonts/SFUIDisplay-Light.woff2") format("woff2"), url("./fonts/SFUIDisplay-Light.woff") format("woff"); }
+  src: url('./fonts/SFUIDisplay-Light.woff2') format('woff2'),
+    url('./fonts/SFUIDisplay-Light.woff') format('woff');
+}
 
 @font-face {
   font-display: swap;
   font-family: 'SF UI';
   font-weight: 200;
   font-style: normal;
-  src: url("./fonts/SFUIDisplay-Ultralight.woff2") format("woff2"), url("./fonts/SFUIDisplay-Ultralight.woff") format("woff"); }
+  src: url('./fonts/SFUIDisplay-Ultralight.woff2') format('woff2'),
+    url('./fonts/SFUIDisplay-Ultralight.woff') format('woff');
+}
 
 :root {
-  --black:          #333333;
-  --beige:          #FFDDA9;
-  --lilac:          #DFDCFE;
-  --turquoise:      #C5F1FF;
-  --green:          #A8B64F;
-  --greenHover:     #899441;
-  --tomato:         #DC3E22;
-  --tomatoMid:      #EE735D;
-  --tomatoLight:    #EA8979;
-  --tomatoHight:    #B7280F;
+  --black: #333333;
+  --beige: #ffdda9;
+  --lilac: #dfdcfe;
+  --turquoise: #c5f1ff;
+  --green: #a8b64f;
+  --greenHover: #899441;
+  --tomato: #dc3e22;
+  --tomatoMid: #ee735d;
+  --tomatoLight: #ea8979;
+  --tomatoHight: #b7280f;
   --whiteLightness: 100%;
-  --white:          hsl(0, 0%, var(--whiteLightness));
-  --grayF4:         hsl(0, 0%, calc(var(--whiteLightness) - 4%));
-  --greyF3:         hsl(0, 0%, calc(var(--whiteLightness) - 5%));
-  --greyEC:         hsl(0, 0%, calc(var(--whiteLightness) - 7%));
-  --greyE4:         hsl(0, 0%, calc(var(--whiteLightness) - 10%));
-  --greyD9:         hsl(0, 0%, calc(var(--whiteLightness) - 15%));
-  --greyC4:         hsl(0, 0%, calc(var(--whiteLightness) - 23%));
-  --grey99:         hsl(0, 0%, calc(var(--whiteLightness) - 40%));
-  --grey66:         hsl(0, 0%, calc(var(--whiteLightness) - 60%));
+  --white: hsl(0, 0%, var(--whiteLightness));
+  --grayF4: hsl(0, 0%, calc(var(--whiteLightness) - 4%));
+  --greyF3: hsl(0, 0%, calc(var(--whiteLightness) - 5%));
+  --greyEC: hsl(0, 0%, calc(var(--whiteLightness) - 7%));
+  --greyE4: hsl(0, 0%, calc(var(--whiteLightness) - 10%));
+  --greyD9: hsl(0, 0%, calc(var(--whiteLightness) - 15%));
+  --greyC4: hsl(0, 0%, calc(var(--whiteLightness) - 23%));
+  --grey99: hsl(0, 0%, calc(var(--whiteLightness) - 40%));
+  --grey66: hsl(0, 0%, calc(var(--whiteLightness) - 60%));
 }
 
 body {

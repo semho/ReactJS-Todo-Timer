@@ -1,0 +1,38 @@
+.btn-task {
+  padding: 19px 50px;
+  border: none;
+  border-radius: 0;
+  font-family: 'SF UI';
+  font-weight: 500;
+  line-height: 17px;
+}
+
+.btn-task--green {
+  background-color: var(--green);
+  color: var(--white);
+}
+
+.btn-task--green:hover {
+  background-color: var(--greenHover);
+}
+
+.btn-task--gray {
+  padding: 17px 49px;
+  background-color: transparent;
+  border: 2px solid var(--greyC4);
+  color: var(--greyC4);
+}
+
+.btn-task--gray:hover {
+  cursor: inherit !important;
+}
+
+.btn-add-time {
+  position: absolute;
+  right: 98px;
+  bottom: 14px;
+}
+
+.btn-add-time--gray:hover svg circle {
+  fill: #899441;
+}

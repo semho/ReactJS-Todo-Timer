@@ -14,38 +14,38 @@
 
 /* Современные браузеры
 ----------------------------  */
-.form-tasks__input::placeholder {color: var(--gray99);}
+.form-tasks__input::placeholder {
+  color: var(--gray99);
+}
 
 /* WebKit, Edge
   ----------------------------  */
-.form-tasks__input::-webkit-input-placeholder {color: var(--gray99);}
+.form-tasks__input::-webkit-input-placeholder {
+  color: var(--gray99);
+}
 
 /* Edge
   ----------------------------  */
-.form-tasks__input::-ms-input-placeholder {color: var(--gray99);}
+.form-tasks__input::-ms-input-placeholder {
+  color: var(--gray99);
+}
 
 /* Firefox 4-18
   ----------------------------  */
-.form-tasks__input:-moz-placeholder {color: var(--gray99);opacity: 1;}
+.form-tasks__input:-moz-placeholder {
+  color: var(--gray99);
+  opacity: 1;
+}
 
 /* Firefox 19+
   ----------------------------  */
-.form-tasks__input::-moz-placeholder {color: var(--gray99);opacity: 1;}
+.form-tasks__input::-moz-placeholder {
+  color: var(--gray99);
+  opacity: 1;
+}
 
 /* IE 10-11
   ----------------------------  */
-.form-tasks__input:-ms-input-placeholder {color: var(--gray99);}
-
-.form-tasks__button  {
-  padding: 19px 50px !important;
-  border: none !important;
-  border-radius: 0 !important;
-  background-color: var(--green) !important;
-  font-family: 'SF UI' !important;
-  font-weight: 500 !important;
-  line-height: 17px !important;
-}
-
-.form-tasks__button:hover {
-  background-color: var(--greenHover) !important;
+.form-tasks__input:-ms-input-placeholder {
+  color: var(--gray99);
 }

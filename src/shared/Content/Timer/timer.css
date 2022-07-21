@@ -1,0 +1,37 @@
+.timer {
+  display: flex;
+  flex-direction: column;
+  width: 57%;
+  height: 507px;
+  background-color: var(--grayF4);
+}
+
+.timer__content {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-top: 70px;
+}
+
+.timer__duration {
+  position: relative;
+  font-family: 'SF UI';
+  font-weight: 200;
+  font-size: 150px;
+  line-height: 179px;
+  transform: translateX(-4px);
+}
+
+.timer__task-current {
+  margin-bottom: 24px;
+  line-height: 17px;
+  transform: translate(-4px, -9px);
+}
+
+.timer__task-current span {
+  color: var(--grey99);
+}
+
+.timer__wrap-button button:not(:last-child) {
+  margin-right: 25px;
+}

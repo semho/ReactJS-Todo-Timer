@@ -18,8 +18,8 @@
 
 .dropdown {
   position: absolute;
-  right: -4px;
-  top: 0;
+  right: -7px;
+  top: -6px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   background-color: var(--white);
   border: 1px solid var(--greyC4);
@@ -37,6 +37,19 @@
   border-right: 6px solid transparent;
   border-bottom: 6px solid var(--white);
   transform: translateX(-50%);
+}
+
+.dropdown::after {
+  display: block;
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-top: 1px solid var(--greyC4);
+  border-left: 1px solid var(--greyC4);
+  transform: translate(-50%, 50%) rotate(45deg);
 }
 
 .closeButton {
