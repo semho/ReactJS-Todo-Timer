@@ -1,5 +1,6 @@
 import React from 'react';
 import { CellStatistics } from './CellStatistics';
+import { ChartWrap } from './ChartWrap';
 import { CountTomato } from './CountTomato';
 import { DayWeek } from './DayWeek';
 import './statisticspage.css';
@@ -9,7 +10,9 @@ export function StatisticsPage() {
     <div className="content__statistics-page statistics-page">
       <h4 className="statistics-page__title">Ваша активность</h4>
       <div className="statistics-page__wrap-chart wrap-chart">
-        <div className="wrap-chart__chart">График</div>
+        <div className="wrap-chart__chart">
+          <ChartWrap />
+        </div>
         <div className="wrap-chart__day_week">
           <DayWeek day="Суббота" time="51 минуты" />
         </div>
