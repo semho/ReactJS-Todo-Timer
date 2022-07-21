@@ -1,0 +1,56 @@
+.statistics-page__title {
+  margin-bottom: 40px;
+  font-family: 'SF UI';
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 33px;
+}
+
+.wrap-chart {
+  margin-bottom: 32px;
+  display: grid;
+  grid-template-columns: 296px 32px 952px;
+  grid-template-rows: 260px 32px 179px;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    'wrap-chart__day_week . wrap-chart__chart'
+    '. . wrap-chart__chart'
+    'wrap-chart__count . wrap-chart__chart';
+}
+
+.wrap-chart__chart {
+  grid-area: wrap-chart__chart;
+  background-color: var(--grayF4);
+}
+
+.wrap-chart__day_week {
+  grid-area: wrap-chart__day_week;
+  background-color: var(--grayF4);
+}
+
+.wrap-chart__count {
+  grid-area: wrap-chart__count;
+  background-color: var(--grayF4);
+}
+
+.wrap-info {
+  display: grid;
+  grid-template-columns: 405px 32px 405px 32px 405px;
+  grid-template-rows: 179px;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas: 'wrap-info__time-focus . wrap-info__time-pause . wrap-info__time-stop';
+}
+
+.wrap-info__time-focus {
+  grid-area: wrap-info__time-focus;
+}
+
+.wrap-info__time-pause {
+  grid-area: wrap-info__time-pause;
+}
+
+.wrap-info__time-stop {
+  grid-area: wrap-info__time-stop;
+}

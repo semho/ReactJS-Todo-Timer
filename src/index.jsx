@@ -28,6 +28,14 @@ const render = (Component) => {
           <Route path="/" element={<Component />}>
             <Route path="/" element={<MainPage />} />
             <Route path="statistics" element={<StatisticsPage />} />
+            <Route
+              path="*"
+              element={
+                <main style={{ padding: '1rem' }}>
+                  <h4>Ошибка 404: Страница не найдена!</h4>
+                </main>
+              }
+            />
           </Route>
         </Routes>
       </BrowserRouter>

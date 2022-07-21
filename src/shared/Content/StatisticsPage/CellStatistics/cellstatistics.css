@@ -1,0 +1,42 @@
+.cell {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+  height: 100%;
+}
+
+.cell--gray {
+  background-color: var(--grayF4);
+}
+
+.cell--beige {
+  background-color: var(--beige);
+}
+
+.cell--turquoise {
+  background-color: var(--turquoise);
+}
+
+.cell--lilac {
+  background-color: var(--lilac);
+}
+
+.cell__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cell__title {
+  font-family: 'SF UI';
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 33px;
+}
+
+.cell__text {
+  font-family: 'SF UI';
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 76px;
+}
