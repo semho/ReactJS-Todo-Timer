@@ -9,9 +9,7 @@ interface IContentProps {
 export function Content({ children }: IContentProps) {
   return (
     <main className="app__content content">
-      <Container className='content__container'>
-        {children}
-      </Container>
+      <Container className="content__container">{children}</Container>
     </main>
   );
 }
