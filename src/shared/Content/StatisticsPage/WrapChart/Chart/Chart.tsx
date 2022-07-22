@@ -1,8 +1,8 @@
 import React from 'react';
 import { Bar } from './Bar';
-import './chartwrap.css';
+import './chart.css';
 
-export function ChartWrap() {
+export function Chart() {
   return (
     <div className="chart-container chart">
       <div className="level2 chart__levels"></div>

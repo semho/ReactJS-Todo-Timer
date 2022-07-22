@@ -1,7 +1,7 @@
 import React from 'react';
-import { FocusIcon } from '../../../Icons/FocusIcon';
-import { StopIcon } from '../../../Icons/StopIcon';
-import { TimeIcon } from '../../../Icons/TimeIcon';
+import { FocusIcon } from '../../../../Icons/FocusIcon';
+import { StopIcon } from '../../../../Icons/StopIcon';
+import { TimeIcon } from '../../../../Icons/TimeIcon';
 import './cellstatistics.css';
 
 type TColorBack = 'gray' | 'beige' | 'turquoise' | 'lilac';

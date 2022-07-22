@@ -1,6 +1,6 @@
 import React from 'react';
-import { NoTomatoesIcon } from '../../../Icons/NoTomatoesIcon';
-import { TomatoesIcon } from '../../../Icons/TomatoesIcon';
+import { NoTomatoesIcon } from '../../../../Icons/NoTomatoesIcon';
+import { TomatoesIcon } from '../../../../Icons/TomatoesIcon';
 import './counttomato.css';
 
 interface ICountProps {
