@@ -4,11 +4,12 @@ import { ChartWrap } from './ChartWrap';
 import { CountTomato } from './CountTomato';
 import { DayWeek } from './DayWeek';
 import './statisticspage.css';
+import { StatisticsTitle } from './StatisticsTitle';
 
 export function StatisticsPage() {
   return (
     <div className="content__statistics-page statistics-page">
-      <h4 className="statistics-page__title">Ваша активность</h4>
+      <StatisticsTitle />
       <div className="statistics-page__wrap-chart wrap-chart">
         <div className="wrap-chart__chart">
           <ChartWrap />

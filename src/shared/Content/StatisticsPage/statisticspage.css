@@ -1,11 +1,3 @@
-.statistics-page__title {
-  margin-bottom: 40px;
-  font-family: 'SF UI';
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 33px;
-}
-
 .wrap-chart {
   margin-bottom: 32px;
   display: grid;
