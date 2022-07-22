@@ -1,6 +1,6 @@
 import './App.css';
 import '../../main.global.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Layout } from '../Layout';
 import { hot } from 'react-hot-loader/root';
 import { setConfig } from 'react-hot-loader';
@@ -17,6 +17,10 @@ setConfig({
 });
 
 const App = () => {
+  useEffect(() => {
+    document.title = 'pomodoro_box';
+  }, []);
+
   return (
     <Layout>
       <Header />

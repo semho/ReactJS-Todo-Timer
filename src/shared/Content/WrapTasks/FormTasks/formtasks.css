@@ -12,6 +12,10 @@
   background-color: var(--grayF4) !important;
 }
 
+.form-tasks__input:focus {
+  box-shadow: 0 0 0 0.25rem rgba(8, 138, 47, 0.377);
+}
+
 /* Современные браузеры
 ----------------------------  */
 .form-tasks__input::placeholder {
@@ -48,4 +52,11 @@
   ----------------------------  */
 .form-tasks__input:-ms-input-placeholder {
   color: var(--gray99);
+}
+
+.form-tasks__error {
+  margin: 0;
+  padding: 0;
+  color: var(--tomatoHight);
+  transform: translateY(10px);
 }
