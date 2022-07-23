@@ -1,8 +1,12 @@
 import React from 'react';
+import { useAppSelector } from '../../../../hooks/hooksStore';
+import { selectTask } from '../../../store/slices/tasks';
 import './listtasks.css';
 import { Menu } from './Menu';
 
 export function ListTasks() {
+  const count = useAppSelector(selectTask);
+  console.log(count);
   return (
     <div className="wrap-tasks__list-tasks list-tasks">
       <ul className="list-tasks__list">

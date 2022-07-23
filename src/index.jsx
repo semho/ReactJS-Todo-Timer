@@ -10,6 +10,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MainPage } from './shared/Content/MainPage';
 import { StatisticsPage } from './shared/Content/StatisticsPage';
+import { Provider } from 'react-redux';
+import { store } from './shared/store/store';
 
 //для 18 версии react инициализация приложения поменялась
 const rootElement = document.getElementById('root');
@@ -23,22 +25,24 @@ document.body.appendChild(div);
 const render = (Component) => {
   root.render(
     <StrictMode>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Component />}>
-            <Route path="/" element={<MainPage />} />
-            <Route path="statistics" element={<StatisticsPage />} />
-            <Route
-              path="*"
-              element={
-                <main style={{ padding: '1rem' }}>
-                  <h4>Ошибка 404: Страница не найдена!</h4>
-                </main>
-              }
-            />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Component />}>
+              <Route path="/" element={<MainPage />} />
+              <Route path="statistics" element={<StatisticsPage />} />
+              <Route
+                path="*"
+                element={
+                  <main style={{ padding: '1rem' }}>
+                    <h4>Ошибка 404: Страница не найдена!</h4>
+                  </main>
+                }
+              />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </Provider>
     </StrictMode>
   );
 };
