@@ -3,7 +3,7 @@ import { Form } from 'react-bootstrap';
 import { Button } from '../../../Button';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '../../../../hooks/hooksStore';
-import { saveTask } from '../../../store/slices/tasks';
+import { addTask } from '../../../store/slices/tasks';
 import nextId from 'react-id-generator';
 import './formtasks.css';
 
@@ -36,7 +36,7 @@ export function FormTasks() {
     };
 
     if (data) {
-      dispatch(saveTask(newData));
+      dispatch(addTask(newData));
     }
 
     //обнуляем стейт и объект, после передачи объекта(хранилище/контекст/пропсы)
