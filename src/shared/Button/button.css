@@ -36,3 +36,14 @@
 .btn-add-time--gray:hover svg circle {
   fill: #899441;
 }
+
+.btn-task--red {
+  background-color: transparent;
+  border: 2px solid var(--tomato);
+  color: var(--tomato);
+}
+
+.btn-task--red:hover {
+  background-color: var(--tomato);
+  color: var(--white);
+}

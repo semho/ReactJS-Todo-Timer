@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAppDispatch } from '../../../../../../hooks/hooksStore';
-import { removeTask } from '../../../../../store/slices/tasks';
+import {
+  addTimeTask,
+  changeTask,
+  downTimeTask,
+} from '../../../../../store/slices/tasks';
 import { DownIcon } from '../../../../../Icons/DownIcon';
 import { EIcons, Icon } from '../../../../../Icons/Icon';
 import { useNavigate } from 'react-router-dom';
@@ -11,30 +15,70 @@ interface IMenuItemsListProps {
 }
 
 export function MenuItemsList({ idTask }: IMenuItemsListProps) {
+  useEffect(() => {
+    //меню задачи
+    const menu = document.querySelector('.menuItemsList');
+    if (!menu) return;
+    //кнопка уменьшения "помидор"
+    const btnDown = menu.querySelector('.menuItem__down');
+    (btnDown as HTMLButtonElement).disabled = true;
+    //сама задача в DOM
+    const task = document.getElementById(idTask);
+    //количество "помидор"
+    const counter = task?.querySelector('.item-task__count');
+    let textCounter = '';
+    //приводим к строке
+    if (counter && counter.textContent !== null) {
+      textCounter = counter.textContent;
+    }
+    //теперь к числу
+    const count = parseInt(textCounter, 10);
+    //если повторений задачи будет больше одного раза
+    if (count > 1) {
+      //повесим класс на кнопку убалнения
+      btnDown?.classList.add('menuItem__down--green');
+      //уберем блокировку
+      (btnDown as HTMLButtonElement).disabled = false;
+    }
+  }, []);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   function deleteTask() {
-    // dispatch(removeTask(idTask));
-    navigate(`/tasks/${idTask}`);
+    navigate(`/tasks/${idTask}?method=delete`);
   }
+
+  function upTime() {
+    dispatch(addTimeTask(idTask));
+  }
+
+  function downTime() {
+    dispatch(downTimeTask(idTask));
+  }
+
+  function changeTitle() {
+    navigate(`/tasks/${idTask}?method=put`);
+    // dispatch(changeTask(idTask));
+  }
+
   return (
-    <ul className="menuItemsList">
-      <li className="menuItem" onClick={() => console.log(idTask)}>
+    <div className="menuItemsList">
+      <button className="menuItem" onClick={upTime}>
         <Icon name={EIcons.up} size={18} color={'#A8B64F'} />
         Увеличить
-      </li>
-      <li className="menuItem" onClick={() => console.log(idTask)}>
+      </button>
+      <button className="menuItem menuItem__down" onClick={downTime}>
         <DownIcon />
         Уменьшить
-      </li>
-      <li className="menuItem" onClick={() => console.log(idTask)}>
+      </button>
+      <button className="menuItem" onClick={changeTitle}>
         <Icon name={EIcons.edit} size={18} color={'#A8B64F'} />
         Редактировать
-      </li>
-      <li className="menuItem" onClick={deleteTask}>
+      </button>
+      <button className="menuItem" onClick={deleteTask}>
         <Icon name={EIcons.delete} size={18} color={'#A8B64F'} />
         Удалить
-      </li>
-    </ul>
+      </button>
+    </div>
   );
 }

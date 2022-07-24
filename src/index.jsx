@@ -12,6 +12,7 @@ import { MainPage } from './shared/Content/MainPage';
 import { StatisticsPage } from './shared/Content/StatisticsPage';
 import { Provider } from 'react-redux';
 import { store } from './shared/store/store';
+import { MainAndModal } from './shared/Content/MainAndModal';
 
 //для 18 версии react инициализация приложения поменялась
 const rootElement = document.getElementById('root');
@@ -19,8 +20,11 @@ const root = createRoot(rootElement);
 
 //вставляем элемент в DOM для портала
 const div = document.createElement('div');
+const modal = document.createElement('div');
 div.setAttribute('id', 'dropdown_root');
+modal.setAttribute('id', 'modal_root');
 document.body.appendChild(div);
+document.body.appendChild(modal);
 
 const render = (Component) => {
   root.render(
@@ -30,6 +34,7 @@ const render = (Component) => {
           <Routes>
             <Route path="/" element={<Component />}>
               <Route path="/" element={<MainPage />} />
+              <Route path="/tasks/:id" element={<MainAndModal />} />
               <Route path="statistics" element={<StatisticsPage />} />
               <Route
                 path="*"

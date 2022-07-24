@@ -24,3 +24,11 @@
 .menuItem svg {
   margin-right: 8px;
 }
+
+.menuItem__down {
+  cursor: no-drop;
+}
+
+.menuItem__down--green svg path {
+  fill: var(--green);
+}

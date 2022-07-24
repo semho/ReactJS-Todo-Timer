@@ -11,7 +11,7 @@ interface IDropdownProps {
 
 export function Dropdown({ button }: IDropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
-  const [idElement, setIdElement] = useState<string | null>(null);
+  const [idElement, setIdElement] = useState<string>('');
 
   const [referenceElement, setReferenceElement] =
     useState<HTMLDivElement | null>(null);

@@ -8,11 +8,15 @@ interface TaskState {
   time: number;
   count: number;
 }
-//начальное состояние задачи
+//изменяемая задача
+interface changeTaskState {
+  text?: string;
+  id: string;
+}
 interface TasksState {
   tasks: TaskState[];
 }
-
+//начальное состояние задачи
 const initialState: TasksState = {
   tasks: [],
 };
@@ -26,27 +30,82 @@ export const storeTasks = createSlice({
   initialState,
   reducers: {
     /**
-     * сохраняем задачу в стейт
+     * сохраняем задачу в store
      * @param state - хранение состояния
-     * @param action  - экшен который передаем в стейт
+     * @param action  - экшен который передаем в store(в данном случае задача)
      */
-    saveTask: (state, action: PayloadAction<TaskState>) => {
-      // state.value += action.payload;
-      state.tasks = [
-        ...state.tasks,
-        {
-          text: action.payload.text,
-          id: action.payload.id,
-          time: action.payload.time,
-          count: action.payload.count,
-        },
-      ];
+    addTask: (state, action: PayloadAction<TaskState>) => {
+      state.tasks.push(action.payload);
+    },
+    /**
+     * удаляем задачу из store по ее id
+     * @param state - хранение состояния
+     * @param action  - экшен который передаем в store(в данном случае задача)
+     */
+    removeTask: (state, action: PayloadAction<string>) => {
+      state.tasks = state.tasks.filter(({ id }) => id !== action.payload);
+    },
+    /**
+     * добавляем время к задаче по ее id
+     */
+    addTimeTask: (state, action: PayloadAction<string>) => {
+      state.tasks = state.tasks.map((item) => {
+        if (item.id === action.payload) {
+          return {
+            ...item,
+            count: item.count + 1,
+            time: item.time + 25,
+          };
+        }
+        return item;
+      });
+    },
+    /**
+     * убавляем время у задачи по ее id
+     */
+    downTimeTask: (state, action: PayloadAction<string>) => {
+      state.tasks = state.tasks.map((item) => {
+        if (item.id === action.payload) {
+          return {
+            ...item,
+            count: item.count - 1,
+            time: item.time - 25,
+          };
+        }
+        return item;
+      });
+    },
+    /**
+     * меняем название задачи по ее id
+     */
+    // changeTask: (state, action: PayloadAction<string>) => {
+    //   state.tasks = state.tasks.map((item) => {
+    //     if (item.id === action.payload) {
+    //       return {
+    //         ...item,
+    //         text: 'новый текст',
+    //       };
+    //     }
+    //     return item;
+    //   });
+    // },
+    changeTask: (state, action: PayloadAction<changeTaskState>) => {
+      state.tasks = state.tasks.map((item) => {
+        if (item.id === action.payload.id) {
+          return {
+            ...item,
+            text: action.payload.text,
+          };
+        }
+        return item;
+      });
     },
   },
 });
 
 //экшены задач
-export const { saveTask } = storeTasks.actions;
+export const { addTask, removeTask, addTimeTask, downTimeTask, changeTask } =
+  storeTasks.actions;
 //стейты задач
 export const selectTask = (state: RootState) => state.tasks.tasks;
 //выгружаем редьюсер для главного стора

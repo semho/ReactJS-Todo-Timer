@@ -4,7 +4,7 @@ import { MenuItemsList } from '../../Content/WrapTasks/ListTasks/Menu/MenuItemsL
 
 interface IBodyDropdown {
   onClose?: () => void;
-  idTask?: string | null;
+  idTask: string;
 }
 
 export function BodyDropdown({ onClose, idTask }: IBodyDropdown) {

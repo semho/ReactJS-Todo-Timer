@@ -3,16 +3,23 @@ import { Form } from 'react-bootstrap';
 import { Button } from '../../../Button';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '../../../../hooks/hooksStore';
-import { addTask } from '../../../store/slices/tasks';
+import { addTask, changeTask } from '../../../store/slices/tasks';
 import nextId from 'react-id-generator';
 import './formtasks.css';
+import { useNavigate } from 'react-router-dom';
+
+interface IFormProps {
+  status?: string;
+  idTask?: string;
+}
 
 interface IFormInput {
   newTask?: string;
 }
 
-export function FormTasks() {
+export function FormTasks({ status = 'Добавить', idTask }: IFormProps) {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   //стейт для значение input
   const [text, setText] = useState('');
   //записываем значение в стейт при срабатывании события
@@ -27,16 +34,24 @@ export function FormTasks() {
     reset,
   } = useForm();
   const onSubmit = (data: IFormInput) => {
-    //сформируем новый объект с уникальным id и передадим в стейт
-    const newData = {
-      text: data.newTask,
-      id: nextId(),
-      time: 25,
-      count: 1,
-    };
+    if (status === 'Добавить') {
+      //сформируем новый объект с уникальным id и передадим в store
+      const newData = {
+        text: data.newTask,
+        id: nextId(),
+        time: 25,
+        count: 1,
+      };
 
-    if (data) {
-      dispatch(addTask(newData));
+      if (data) {
+        dispatch(addTask(newData));
+      }
+    }
+
+    //если форма на изменение задачи
+    if (status === 'Сохранить' && idTask) {
+      dispatch(changeTask({ id: idTask, text: data.newTask }));
+      navigate('/');
     }
 
     //обнуляем стейт и объект, после передачи объекта(хранилище/контекст/пропсы)
@@ -66,7 +81,7 @@ export function FormTasks() {
           <p className="form-tasks__error">Введите больше 3-х символов</p>
         )}
       </Form.Group>
-      <Button type="submit" variant="green" title="Добавить" />
+      <Button type="submit" variant="green" title={status} />
     </Form>
   );
 }
