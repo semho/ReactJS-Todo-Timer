@@ -1,0 +1,43 @@
+.app__header {
+  height: 70px;
+  box-shadow: 0px 10px 63px rgba(0, 0, 0, 0.07);
+}
+
+.header__container {
+  height: 100%;
+}
+
+.header__left-wrap,
+.header__right-wrap {
+  display: flex;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.header__left-wrap svg {
+  margin-right: 12px;
+}
+
+.header__right-wrap svg {
+  margin-right: 10px;
+}
+
+.header__title-logo {
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 24px;
+  color: var(--tomato);
+  transform: translateY(6px);
+}
+
+.header__link-wrap {
+  display: flex;
+}
+
+.header__link {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 17px;
+  color: var(--tomato);
+  transform: translate(-5px, 4px);
+}

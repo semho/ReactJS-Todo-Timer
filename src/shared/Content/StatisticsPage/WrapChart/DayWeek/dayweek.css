@@ -1,0 +1,21 @@
+.day-week {
+  padding: 25px;
+}
+
+.day-week__title {
+  margin-bottom: 15px;
+  font-family: 'SF UI';
+  line-height: 33px;
+  font-weight: 700;
+}
+
+.day-week__text {
+  line-height: 28px;
+}
+
+.day-week__text span {
+  font-family: 'SF UI';
+  font-weight: 700;
+  line-height: 28px;
+  color: var(--tomato);
+}

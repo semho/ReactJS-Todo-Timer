@@ -1,0 +1,6 @@
+.chart__graphs-value--red {
+  background: var(--tomatoMid);
+}
+.chart__graphs-value--gray {
+  background: var(--greyC4);
+}

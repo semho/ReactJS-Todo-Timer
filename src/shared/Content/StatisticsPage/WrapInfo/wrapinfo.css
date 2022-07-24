@@ -1,0 +1,20 @@
+.wrap-info {
+  display: grid;
+  grid-template-columns: 405px 32px 405px 32px 405px;
+  grid-template-rows: 179px;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas: 'wrap-info__time-focus . wrap-info__time-pause . wrap-info__time-stop';
+}
+
+.wrap-info__time-focus {
+  grid-area: wrap-info__time-focus;
+}
+
+.wrap-info__time-pause {
+  grid-area: wrap-info__time-pause;
+}
+
+.wrap-info__time-stop {
+  grid-area: wrap-info__time-stop;
+}

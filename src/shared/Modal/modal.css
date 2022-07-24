@@ -1,0 +1,77 @@
+.modal-task {
+  position: fixed;
+  padding-bottom: 15px;
+  left: 50%;
+  top: 40%;
+  min-width: 18%;
+  min-height: 160px;
+  max-width: 80%;
+  background: var(--white);
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.15);
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.modal-fade:before {
+  content: '';
+  background: #000;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+  z-index: 999;
+}
+
+.modal-task__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: hidden;
+}
+
+.modal-task__close {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  right: 8px;
+  top: 8px;
+  cursor: pointer;
+}
+
+.modal-task__title {
+  padding-top: 25px;
+  margin-bottom: 25px;
+  font-family: 'SF UI';
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 17px;
+}
+
+.modal-task__content button {
+  margin-bottom: 10px;
+}
+
+.modal-task__link {
+  color: var(--black);
+  font-weight: 300;
+  line-height: 17px;
+}
+
+.modal-task__link:hover {
+  color: var(--black);
+  text-decoration: underline !important;
+}
+
+.modal-task__content .form-tasks {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.modal-task__content .form-tasks__input {
+  max-width: 100%;
+}

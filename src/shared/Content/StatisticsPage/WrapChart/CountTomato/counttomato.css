@@ -1,0 +1,48 @@
+.count-tomato {
+  text-align: center;
+  height: 100%;
+}
+
+.count-tomato > svg {
+  margin-top: 32px;
+}
+
+.count-tomato__wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.count-tomato__sum {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  font-family: 'SF UI';
+  font-weight: 700;
+  line-height: 33px;
+  font-size: 24px;
+  color: var(--grey99);
+}
+
+.count-tomato__sum svg {
+  margin-right: 15px;
+}
+
+.count-tomato__footer {
+  display: flex;
+  margin-top: auto;
+  margin-bottom: auto;
+  align-items: center;
+  justify-content: center;
+  height: 70px;
+  background-color: var(--tomato);
+}
+
+.count-tomato__footer span {
+  font-family: 'SF UI';
+  font-weight: 700;
+  line-height: 33px;
+  font-size: 24px;
+  color: var(--white);
+}

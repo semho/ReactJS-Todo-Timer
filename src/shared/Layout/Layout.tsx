@@ -8,7 +8,7 @@ interface ILayoutProps {
 export function Layout({ children }:ILayoutProps) {
 
   return (
-    <div className="App">
+    <div className='app'>
       { children }
     </div>
   );

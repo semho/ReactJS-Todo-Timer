@@ -1,0 +1,30 @@
+.list-tasks__list {
+  padding-left: 0;
+  max-width: 72%;
+}
+
+.item-task {
+  border-bottom: 1px solid var(--greyE4);
+}
+
+.item-task:first-child {
+  border-top: 1px solid var(--greyE4);
+}
+
+.item-task__wrap {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 13px;
+  padding-bottom: 11px;
+  font-weight: 300;
+  line-height: 17px;
+  align-items: center;
+}
+
+.item-task__count {
+  margin-right: 10px;
+  padding: 3px 9px;
+  border-radius: 50%;
+  border: 1px solid var(--greyC4);
+  text-align: center;
+}
