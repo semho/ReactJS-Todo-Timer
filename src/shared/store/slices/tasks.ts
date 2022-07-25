@@ -78,17 +78,6 @@ export const storeTasks = createSlice({
     /**
      * меняем название задачи по ее id
      */
-    // changeTask: (state, action: PayloadAction<string>) => {
-    //   state.tasks = state.tasks.map((item) => {
-    //     if (item.id === action.payload) {
-    //       return {
-    //         ...item,
-    //         text: 'новый текст',
-    //       };
-    //     }
-    //     return item;
-    //   });
-    // },
     changeTask: (state, action: PayloadAction<changeTaskState>) => {
       state.tasks = state.tasks.map((item) => {
         if (item.id === action.payload.id) {

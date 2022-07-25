@@ -1,12 +1,12 @@
 import React from 'react';
 import './headertimer.css';
 
-type TStatus = 'stop' | 'run' | 'pause';
+type TStatus = 'stop' | 'run' | 'rest';
 
 interface IHeaderProps {
-  status: TStatus;
-  task: string;
-  count: number;
+  status?: TStatus;
+  task?: string;
+  count?: number;
 }
 
 export function HeaderTimer({ status, task, count }: IHeaderProps) {

@@ -10,12 +10,20 @@
   background-color: var(--greyC4);
 }
 
-.timer__header--run {
+.timer__header--rest {
   background-color: var(--green);
 }
 
-.timer__header--pause {
+.timer__header--rest + .timer__content .timer__item {
+  color: var(--green);
+}
+
+.timer__header--run {
   background-color: var(--tomato);
+}
+
+.timer__header--run + .timer__content .timer__item {
+  color: var(--tomato);
 }
 
 .timer__header-task {

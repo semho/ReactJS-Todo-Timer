@@ -8,13 +8,21 @@ interface IButtonProps {
   variant: TColor;
   type: TType;
   title: string;
+  className?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
-export function Button({ variant, type, title }: IButtonProps) {
-  const colorBtn = `btn-task btn-task--${variant}`;
+export function Button({
+  variant,
+  type,
+  title,
+  className,
+  onClick,
+}: IButtonProps) {
+  const colorBtn = `btn-task btn-task--${variant} ${className}`;
 
   return (
-    <button type={type} className={colorBtn}>
+    <button type={type} className={colorBtn} onClick={onClick}>
       {title}
     </button>
   );

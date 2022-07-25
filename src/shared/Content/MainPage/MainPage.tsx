@@ -1,9 +1,10 @@
 import React from 'react';
-import { Timer } from '../Timer';
+import { Outlet } from 'react-router-dom';
 import { WrapTasks } from '../WrapTasks';
 import { FormTasks } from '../WrapTasks/FormTasks';
 import { ListTasks } from '../WrapTasks/ListTasks';
 import { Manual } from '../WrapTasks/Manual';
+import { WrapTimer } from '../WrapTimer';
 import './mainpage.css';
 
 export function MainPage() {
@@ -14,7 +15,9 @@ export function MainPage() {
         <FormTasks />
         <ListTasks />
       </WrapTasks>
-      <Timer />
+      <WrapTimer>
+        <Outlet />
+      </WrapTimer>
     </div>
   );
 }
