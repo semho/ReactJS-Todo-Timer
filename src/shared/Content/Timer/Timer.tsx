@@ -19,7 +19,10 @@ interface ITaskProps {
 
 export function Timer() {
   const TIME_TASK = 0.1;
-  const TIME_REST = 0.15;
+  const TIME_REST_SHORT = 0.15;
+  const TIME_REST_LONG = '01';
+  //порядковый номер успешного завершения сеанса
+  const [sessionNumber, setSessionNumber] = useState(1);
   //получаем id задачи на которую сработал таймер
   const { id } = useParams();
   //вытаскиваем все задачи из store
@@ -29,7 +32,10 @@ export function Timer() {
 
   //константы под секунды
   const secondsTask = Number(TIME_TASK) * 60;
-  const secondsRest = Number(TIME_REST) * 60;
+  let secondsRest = Number(TIME_REST_SHORT) * 60;
+  if (sessionNumber === 4) {
+    secondsRest = Number(TIME_REST_LONG) * 60;
+  }
 
   //стейт начального состояния счетчика
   const [count, setCount] = useState(secondsTask);
@@ -78,7 +84,15 @@ export function Timer() {
   function pomodoroIsOver() {
     stop();
     playNotification();
+    longRest();
     setIsRest(!isRest);
+  }
+  //функция по увеличению времени на четвертый отдых
+  function longRest() {
+    if (isRest) setSessionNumber(sessionNumber + 1);
+    if (isRest && sessionNumber === 4) {
+      setSessionNumber(1);
+    }
   }
   //командные функции на кнопки таймера
   function stop() {
@@ -89,12 +103,16 @@ export function Timer() {
     setIsTaskActive(false);
 
     setCountRest(secondsRest);
-    isRest ? setIsRest(false) : isRest;
+
+    longRest();
+
+    if (isRest) setIsRest(false);
   }
 
   function finished() {
     stop();
     setIsRest(!isRest);
+    playNotification();
   }
 
   function start() {
@@ -126,7 +144,11 @@ export function Timer() {
         <div className="timer__duration">
           <div className="timer__items">
             <div className="timer__item timer__minutes">
-              {!isRest ? TIME_TASK : TIME_REST}
+              {!isRest
+                ? TIME_TASK
+                : sessionNumber === 4
+                ? TIME_REST_LONG
+                : TIME_REST_SHORT}
             </div>
             <div className="timer__item timer__seconds">00</div>
           </div>
