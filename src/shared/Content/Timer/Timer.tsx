@@ -71,6 +71,8 @@ export function Timer() {
   //DOM эленты для минут и секунд
   const boxMinutes = document.querySelector('.timer__minutes');
   const boxSeconds = document.querySelector('.timer__seconds');
+  //стейт для вывода сообщения, что помидоры у задачи закончились
+  const [isShowFinishedTask, setIsShowFinishedTask] = useState(false);
 
   //хук для таймера
   useInterval(
@@ -84,7 +86,6 @@ export function Timer() {
     count: number,
     state: React.Dispatch<React.SetStateAction<number>>
   ) {
-    console.log(count);
     state(count - 1);
     //каждый тик пересчитываем минуты и секунды
     const timerMinutes = count > 0 ? Math.floor(count / 60) % 60 : 0;
@@ -111,6 +112,7 @@ export function Timer() {
   }
   //командные функции на кнопки таймера
   function stop() {
+    if (task?.count === sessionNumber) setIsShowFinishedTask(true);
     setIsAddMinutes(false);
     setCustomTime(timeForTimer);
     setCount(secondsTimer);
@@ -229,6 +231,7 @@ export function Timer() {
           </div>
         )}
       </div>
+      {isShowFinishedTask && <span>Помидоры закончились</span>}
     </div>
   );
 }
