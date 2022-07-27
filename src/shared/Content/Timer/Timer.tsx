@@ -18,9 +18,9 @@ interface ITaskProps {
 }
 
 export function Timer() {
-  const TIME_TASK = 0.1;
-  const TIME_REST_SHORT = 0.15;
-  const TIME_REST_LONG = '01';
+  const TIME_TASK = 25;
+  const TIME_REST_SHORT = 5;
+  const TIME_REST_LONG = 30;
   //порядковый номер успешного завершения сеанса
   const [sessionNumber, setSessionNumber] = useState(1);
   //получаем id задачи на которую сработал таймер
@@ -30,17 +30,35 @@ export function Timer() {
   const task = tasks.find((item) => item.id === id);
   const numberTask = task?.id?.replace(/[^\d]/gi, '');
 
-  //константы под секунды
-  const secondsTask = Number(TIME_TASK) * 60;
-  let secondsRest = Number(TIME_REST_SHORT) * 60;
-  if (sessionNumber === 4) {
-    secondsRest = Number(TIME_REST_LONG) * 60;
+  //стейт статуса отдыха
+  const [isRest, setIsRest] = useState(false);
+  //пременная для хранения текущего времени таймера
+  let timeForTimer = Number(TIME_TASK);
+  //если это отдых, перезапишем переменную
+  if (isRest && sessionNumber === 4) {
+    timeForTimer = Number(TIME_REST_LONG);
+  } else if (isRest) {
+    timeForTimer = Number(TIME_REST_SHORT);
+  }
+  //стейт определяет добавляем ли мы дополнительные минуты
+  const [isAddMinutes, setIsAddMinutes] = useState(false);
+  //стейт для перезаписи времени таймера, если были добавлены минуты
+  const [customTime, setCustomTime] = useState(timeForTimer);
+  //переменная под секунды
+  let secondsTimer = 0;
+  //в хуке перезаписываем время таймера, если добавили минуты
+  useEffect(() => {
+    if (!isAddMinutes) setCustomTime(timeForTimer);
+    secondsTimer = Number(customTime) * 60;
+  }, [addMinutes]);
+  //функция для добавления минут
+  function addMinutes() {
+    setIsAddMinutes(true);
+    setCustomTime(customTime + 1);
   }
 
   //стейт начального состояния счетчика
-  const [count, setCount] = useState(secondsTask);
-  //cтейт для кнопки добавления времени
-  const [addMinutes, setAddMinutes] = useState(TIME_TASK);
+  const [count, setCount] = useState(secondsTimer);
   //стейт начального состояния задержки для таймера
   const [delay, setDelay] = useState(1000);
   //стейт начального состояния запуска таймера
@@ -49,18 +67,15 @@ export function Timer() {
   const [isResume, setIsResume] = useState(false);
   //проверка на состояние активновти выполнения задачи
   const [isTaskActive, setIsTaskActive] = useState(false);
+
   //DOM эленты для минут и секунд
   const boxMinutes = document.querySelector('.timer__minutes');
   const boxSeconds = document.querySelector('.timer__seconds');
-  //стейты для отдыха
-  const [isRest, setIsRest] = useState(false);
-  const [countRest, setCountRest] = useState(secondsRest);
+
   //хук для таймера
   useInterval(
     () => {
-      !isRest
-        ? countdownTimer(count, setCount)
-        : countdownTimer(countRest, setCountRest);
+      countdownTimer(count, setCount);
     },
     isRunning ? delay : null
   );
@@ -69,6 +84,7 @@ export function Timer() {
     count: number,
     state: React.Dispatch<React.SetStateAction<number>>
   ) {
+    console.log(count);
     state(count - 1);
     //каждый тик пересчитываем минуты и секунды
     const timerMinutes = count > 0 ? Math.floor(count / 60) % 60 : 0;
@@ -84,7 +100,6 @@ export function Timer() {
   function pomodoroIsOver() {
     stop();
     playNotification();
-    longRest();
     setIsRest(!isRest);
   }
   //функция по увеличению времени на четвертый отдых
@@ -96,13 +111,13 @@ export function Timer() {
   }
   //командные функции на кнопки таймера
   function stop() {
-    setCount(secondsTask);
+    setIsAddMinutes(false);
+    setCustomTime(timeForTimer);
+    setCount(secondsTimer);
     showTimeInDOM(boxMinutes, boxSeconds, TIME_TASK, 0);
     setIsRunning(false);
     setIsResume(false);
     setIsTaskActive(false);
-
-    setCountRest(secondsRest);
 
     longRest();
 
@@ -116,11 +131,9 @@ export function Timer() {
   }
 
   function start() {
-    setCount(secondsTask);
+    setCount(secondsTimer);
     setIsRunning(true);
     setIsTaskActive(true);
-
-    setCountRest(secondsRest);
   }
 
   function pause() {
@@ -144,19 +157,12 @@ export function Timer() {
         <div className="timer__duration">
           <div className="timer__items">
             <div className="timer__item timer__minutes">
-              {!isRest
-                ? TIME_TASK
-                : sessionNumber === 4
-                ? TIME_REST_LONG
-                : TIME_REST_SHORT}
+              {getFormatTime(customTime)}
             </div>
             <div className="timer__item timer__seconds">00</div>
           </div>
           {!isRunning && !isResume && (
-            <AddButton
-              className="active"
-              onClick={() => setAddMinutes(addMinutes + 1)}
-            />
+            <AddButton className="active" onClick={addMinutes} />
           )}
           {(isRunning || isResume) && (
             <AddButton className="disabled" disabled={true} />
@@ -250,9 +256,7 @@ function showTimeInDOM(
  */
 function setTimeFormat(element: Element | null, time: number | string) {
   if (element) {
-    element.textContent = String(
-      Number(time) < 10 ? '0' + Number(time) : Number(time)
-    );
+    element.textContent = getFormatTime(time);
   }
 }
 /**
@@ -261,4 +265,12 @@ function setTimeFormat(element: Element | null, time: number | string) {
 function playNotification() {
   const audio = new Audio(notification);
   audio.play();
+}
+/**
+ * функция преобразует число в строку и добаляет знак 0 перечед числом, если число меньше 10
+ * @param time - принимает число или строку содержащую число
+ * @returns - возвращает преобразованную строку
+ */
+function getFormatTime(time: number | string): string {
+  return String(Number(time) < 10 ? '0' + Number(time) : Number(time));
 }
