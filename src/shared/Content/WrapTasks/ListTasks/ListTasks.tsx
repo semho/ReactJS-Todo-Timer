@@ -13,8 +13,15 @@ interface ITaskProps {
 }
 
 export function ListTasks() {
+  //константа времени на один таймер задачи
+  const TIME_TASK = 25;
+  //полуаем все задачи из store
   const tasks: ITaskProps[] = useAppSelector(selectTask);
-
+  //получаем сколько всего помидорок у задач и умножаем на минуты для одного таймера
+  const sumTimeTaskMinutes =
+    tasks.reduce((a, b) => +a + +b.count, 0) * TIME_TASK;
+  //получаем общее время для выполнения всех задач
+  const sumTimeTask = getTimeFromMinutes(sumTimeTaskMinutes);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,6 +64,21 @@ export function ListTasks() {
           </li>
         ))}
       </ul>
+      <div className="wrap-tasks__all-time">{sumTimeTask}</div>
     </div>
   );
+}
+
+/**
+ * Функция преобразовывает число в минутах в строку в формате "ХХ час ХХ мин"
+ * @param min - принимает число минут всего
+ * @returns - возвращает строку вида (часы минуты)
+ */
+function getTimeFromMinutes(min: number): string {
+  const hours = Math.trunc(min / 60);
+  const minutes = min % 60;
+  if (hours === 0) {
+    return minutes + ' мин';
+  }
+  return hours + ' час ' + minutes + ' мин';
 }

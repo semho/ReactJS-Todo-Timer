@@ -151,7 +151,7 @@ export function Timer() {
   return (
     <div className="timer">
       <HeaderTimer
-        count={task?.count}
+        count={sessionNumber}
         task={task?.text}
         status={`${isTaskActive && !isRest ? 'run' : isRest ? 'rest' : 'stop'}`}
       />
