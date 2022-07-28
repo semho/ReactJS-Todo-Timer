@@ -10,6 +10,7 @@ interface IButtonProps {
   title: string;
   className?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  disabled?: boolean;
 }
 
 export function Button({
@@ -18,11 +19,17 @@ export function Button({
   title,
   className,
   onClick,
+  disabled,
 }: IButtonProps) {
   const colorBtn = `btn-task btn-task--${variant} ${className}`;
 
   return (
-    <button type={type} className={colorBtn} onClick={onClick}>
+    <button
+      type={type}
+      className={colorBtn}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {title}
     </button>
   );

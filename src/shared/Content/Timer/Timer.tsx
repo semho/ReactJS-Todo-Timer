@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { useAppSelector } from '../../../hooks/hooksStore';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooksStore';
 import { useInterval } from '../../../hooks/useInterval';
 import { Button } from '../../Button';
 import { AddButton } from '../../Button/AddButton';
+import { addDayStatistics } from '../../store/slices/statistics';
 import { selectTask } from '../../store/slices/tasks';
 import { HeaderTimer } from './HeaderTimer';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -21,6 +22,9 @@ export function Timer() {
   const TIME_TASK = 25;
   const TIME_REST_SHORT = 5;
   const TIME_REST_LONG = 30;
+  //подключаем store
+  const dispatch = useAppDispatch();
+
   //порядковый номер успешного завершения сеанса
   const [sessionNumber, setSessionNumber] = useState(1);
   //получаем id задачи на которую сработал таймер
@@ -73,13 +77,23 @@ export function Timer() {
   const boxSeconds = document.querySelector('.timer__seconds');
   //стейт для вывода сообщения, что помидоры у задачи закончились
   const [isShowFinishedTask, setIsShowFinishedTask] = useState(false);
-
+  //стейт счетчика паузы
+  const [countPause, setCountPause] = useState(0);
+  //флаг завершения счетчика задачи или нажатия кнопки сделано
+  let isOver = false;
   //хук для таймера
   useInterval(
     () => {
       countdownTimer(count, setCount);
     },
     isRunning ? delay : null
+  );
+  //таймер для паузы
+  useInterval(
+    () => {
+      setCountPause(countPause + 1);
+    },
+    isResume ? delay : null
   );
   //функция счетчика
   function countdownTimer(
@@ -97,8 +111,14 @@ export function Timer() {
       pomodoroIsOver();
     }
   }
-  //функция срабатывает по истечению времени
+  //функция срабатывает по истечению времени или нажатию кнопки пропустить
   function pomodoroIsOver() {
+    isOver = true;
+    //добавим в store одну помидорку
+    if (!isRest) {
+      saveInStore(0, 0, 1, 0);
+    }
+
     stop();
     playNotification();
     setIsRest(!isRest);
@@ -110,8 +130,46 @@ export function Timer() {
       setSessionNumber(1);
     }
   }
+  /**
+   * функция сохраняет объект в хранилище статистики
+   * @param timeWork - время работы над задачами
+   * @param timePause - общее время на паузе
+   * @param countTomato - количество завершенных помидор
+   * @param countStop - количество нажатий на кнопку стоп
+   */
+  function saveInStore(
+    timeWork: number,
+    timePause: number,
+    countTomato: number,
+    countStop: number
+  ) {
+    dispatch(
+      addDayStatistics({
+        id: getDateForId(),
+        allTimeSpentWork: timeWork,
+        amountTimeSpentPause: timePause,
+        countFinishedTomato: countTomato,
+        countStop: countStop,
+      })
+    );
+  }
+
   //командные функции на кнопки таймера
   function stop() {
+    //запишем в store время на паузе
+    saveInStore(0, countPause, 0, 0);
+    //потраченное рабочее время
+    const timeWork = secondsTimer - count;
+    //запишем в store рабочее время
+    if (!isRest) {
+      saveInStore(timeWork, 0, 0, 0);
+    }
+
+    if (!isOver && !isRest) {
+      //запишем в store нажатие на кнопку stop
+      saveInStore(0, 0, 0, 1);
+    }
+    isOver = false;
     if (task?.count === sessionNumber) setIsShowFinishedTask(true);
     setIsAddMinutes(false);
     setCustomTime(timeForTimer);
@@ -119,17 +177,12 @@ export function Timer() {
     showTimeInDOM(boxMinutes, boxSeconds, TIME_TASK, 0);
     setIsRunning(false);
     setIsResume(false);
+    setCountPause(0);
     setIsTaskActive(false);
 
     longRest();
 
     if (isRest) setIsRest(false);
-  }
-
-  function finished() {
-    stop();
-    setIsRest(!isRest);
-    playNotification();
   }
 
   function start() {
@@ -144,7 +197,10 @@ export function Timer() {
   }
 
   function resume() {
+    //запишем в store время на паузе
+    saveInStore(0, countPause, 0, 0);
     setIsResume(false);
+    setCountPause(0);
     setIsRunning(true);
   }
 
@@ -191,6 +247,7 @@ export function Timer() {
               type="button"
               variant="gray"
               title="Стоп"
+              disabled={true}
             />
           </div>
         )}
@@ -222,7 +279,7 @@ export function Timer() {
               title="Продолжить"
             />
             <Button
-              onClick={finished}
+              onClick={pomodoroIsOver}
               className="stop"
               type="button"
               variant="red"
@@ -276,4 +333,13 @@ function playNotification() {
  */
 function getFormatTime(time: number | string): string {
   return String(Number(time) < 10 ? '0' + Number(time) : Number(time));
+}
+/**
+ * функция даты в формате(деньМесяца_номерМесяца_дуньНедели)
+ * @returns - возвращаем строку
+ */
+function getDateForId(): string {
+  const today = new Date();
+
+  return `${today.getDate()}_${today.getMonth()}_${today.getDay()}`;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../../../hooks/hooksStore';
 import { selectTask } from '../../../store/slices/tasks';
@@ -22,6 +22,16 @@ export function ListTasks() {
     tasks.reduce((a, b) => +a + +b.count, 0) * TIME_TASK;
   //получаем общее время для выполнения всех задач
   const sumTimeTask = getTimeFromMinutes(sumTimeTaskMinutes);
+  const [isShowTimeTasks, setIsShowTimeTasks] = useState(false);
+
+  useEffect(() => {
+    if (sumTimeTask !== '0 мин') {
+      setIsShowTimeTasks(true);
+    } else {
+      setIsShowTimeTasks(false);
+    }
+  }, [sumTimeTask]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -64,7 +74,9 @@ export function ListTasks() {
           </li>
         ))}
       </ul>
-      <div className="wrap-tasks__all-time">{sumTimeTask}</div>
+      <div className="wrap-tasks__all-time">
+        {isShowTimeTasks ? sumTimeTask : ''}
+      </div>
     </div>
   );
 }
