@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooksStore';
 import { useInterval } from '../../../hooks/useInterval';
 import { Button } from '../../Button';
 import { AddButton } from '../../Button/AddButton';
 import { addDayStatistics } from '../../store/slices/statistics';
-import { selectTask } from '../../store/slices/tasks';
+import { removeTask, selectTask } from '../../store/slices/tasks';
 import { HeaderTimer } from './HeaderTimer';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const notification = require('../../../audio/notification.wav');
@@ -27,12 +27,15 @@ export function Timer() {
 
   //порядковый номер успешного завершения сеанса
   const [sessionNumber, setSessionNumber] = useState(1);
+  //счетчик для помидор
+  const [tomatoNumber, setTomatoNumber] = useState(1);
   //получаем id задачи на которую сработал таймер
   const { id } = useParams();
   //вытаскиваем все задачи из store
   const tasks: ITaskProps[] = useAppSelector(selectTask);
   const task = tasks.find((item) => item.id === id);
   const numberTask = task?.id?.replace(/[^\d]/gi, '');
+  const navigate = useNavigate();
 
   //стейт статуса отдыха
   const [isRest, setIsRest] = useState(false);
@@ -48,13 +51,22 @@ export function Timer() {
   const [isAddMinutes, setIsAddMinutes] = useState(false);
   //стейт для перезаписи времени таймера, если были добавлены минуты
   const [customTime, setCustomTime] = useState(timeForTimer);
+  //стейт для вывода сообщения, что помидоры у задачи закончились
+  const [isShowFinishedTask, setIsShowFinishedTask] = useState(false);
   //переменная под секунды
   let secondsTimer = 0;
+
   //в хуке перезаписываем время таймера, если добавили минуты
   useEffect(() => {
     if (!isAddMinutes) setCustomTime(timeForTimer);
     secondsTimer = Number(customTime) * 60;
+    //если задачи нет(пытаются задать ее через url) и при этом она не считается завершенной
+    if (typeof task !== 'object' && !isShowFinishedTask) {
+      //перенаправим на форму создания новой задачи
+      navigate('/');
+    }
   }, [addMinutes]);
+
   //функция для добавления минут
   function addMinutes() {
     setIsAddMinutes(true);
@@ -75,12 +87,12 @@ export function Timer() {
   //DOM эленты для минут и секунд
   const boxMinutes = document.querySelector('.timer__minutes');
   const boxSeconds = document.querySelector('.timer__seconds');
-  //стейт для вывода сообщения, что помидоры у задачи закончились
-  const [isShowFinishedTask, setIsShowFinishedTask] = useState(false);
+
   //стейт счетчика паузы
   const [countPause, setCountPause] = useState(0);
   //флаг завершения счетчика задачи или нажатия кнопки сделано
   let isOver = false;
+
   //хук для таймера
   useInterval(
     () => {
@@ -115,8 +127,22 @@ export function Timer() {
   function pomodoroIsOver() {
     isOver = true;
     //добавим в store одну помидорку
-    if (!isRest) {
+    if (!isRest && typeof task === 'object') {
       saveInStore(0, 0, 1, 0);
+    }
+    //если число помидор из задачи совпало с числом выполненых помидор
+    if (task?.count === tomatoNumber) {
+      //показываем уведомление
+      setIsShowFinishedTask(true);
+      //удаляем задачу из списка задач
+      if (id) {
+        dispatch(removeTask(id));
+      }
+      setTomatoNumber(1);
+      //убираем блокирующие стили
+      document
+        .querySelector('.container__timer')
+        ?.classList.remove('add-background');
     }
 
     stop();
@@ -157,20 +183,26 @@ export function Timer() {
   //командные функции на кнопки таймера
   function stop() {
     //запишем в store время на паузе
-    saveInStore(0, countPause, 0, 0);
+    if (typeof task === 'object') saveInStore(0, countPause, 0, 0);
     //потраченное рабочее время
     const timeWork = secondsTimer - count;
     //запишем в store рабочее время
-    if (!isRest) {
+    if (!isRest && typeof task === 'object') {
       saveInStore(timeWork, 0, 0, 0);
     }
 
-    if (!isOver && !isRest) {
+    if (!isOver && !isRest && typeof task === 'object') {
       //запишем в store нажатие на кнопку stop
       saveInStore(0, 0, 0, 1);
+      document
+        .querySelector('.container__timer')
+        ?.classList.remove('add-background');
     }
     isOver = false;
-    if (task?.count === sessionNumber) setIsShowFinishedTask(true);
+
+    //увеличиваем помидорку на единицу
+    if (isRest) setTomatoNumber(tomatoNumber + 1);
+
     setIsAddMinutes(false);
     setCustomTime(timeForTimer);
     setCount(secondsTimer);
@@ -189,6 +221,10 @@ export function Timer() {
     setCount(secondsTimer);
     setIsRunning(true);
     setIsTaskActive(true);
+    //вешаем блокирующий стиль на окружение таймера, пока он работает
+    document
+      .querySelector('.container__timer')
+      ?.classList.add('add-background');
   }
 
   function pause() {
@@ -198,7 +234,7 @@ export function Timer() {
 
   function resume() {
     //запишем в store время на паузе
-    saveInStore(0, countPause, 0, 0);
+    if (typeof task === 'object') saveInStore(0, countPause, 0, 0);
     setIsResume(false);
     setCountPause(0);
     setIsRunning(true);
@@ -207,7 +243,7 @@ export function Timer() {
   return (
     <div className="timer">
       <HeaderTimer
-        count={sessionNumber}
+        count={tomatoNumber}
         task={task?.text}
         status={`${isTaskActive && !isRest ? 'run' : isRest ? 'rest' : 'stop'}`}
       />
@@ -288,7 +324,20 @@ export function Timer() {
           </div>
         )}
       </div>
-      {isShowFinishedTask && <span>Помидоры закончились</span>}
+      {isShowFinishedTask && (
+        <div className="timer__wrap-message">
+          <div className="timer__message message">
+            <h4 className="message__title">Задача завершилась</h4>
+            <p>
+              Чтобы создать новую задачу или выбрать уже созданную, перейдите на
+              главную страницу
+            </p>
+            <Link className="messge__link" to="/">
+              <Button variant="green" type="button" title={'Перейти'} />
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
