@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './statisticstitle.css';
 import Select from 'react-select';
 
@@ -48,7 +48,7 @@ const colourStyles = {
     };
   },
   dropdownIndicator: (base: any, { isFocused }: any) => {
-    let changes = {
+    const changes = {
       padding: '10px',
       transform: 'scale(1.2) translateY(2px)',
       svg: {
@@ -66,11 +66,20 @@ const options = [
   { value: '2lastWeek', label: '2 недели назад' },
 ];
 
-export function StatisticsTitle() {
+interface ISelectProps {
+  updateWeek: (value?: string) => void;
+}
+
+export function StatisticsTitle({ updateWeek }: ISelectProps) {
   const [option, setOption] = useState<IOption>({
     value: 'current',
     label: 'Эта неделя',
   });
+
+  useEffect(() => {
+    //передаем родителю стейт
+    updateWeek(option.value);
+  }, [option.value, updateWeek]);
 
   return (
     <div className="statistics-page__title-wrap">

@@ -70,7 +70,7 @@
   grid-area: 1 / 12 / 10 / 13;
 }
 
-.graph7 {
+.graph0 {
   grid-area: 1 / 14 / 10 / 15;
 }
 
@@ -104,7 +104,7 @@
   background: var(--greyEC);
 }
 
-.day7 {
+.day0 {
   grid-area: 10 / 14 / 11 / 15;
   background: var(--greyEC);
 }
@@ -144,7 +144,7 @@
   background: var(--greyEC);
 }
 
-.footer7 {
+.footer0 {
   grid-area: 10 / 13 / 11 / 14;
   background: var(--greyEC);
 }
@@ -158,6 +158,7 @@
   font-size: 24px;
   line-height: 29px;
   color: var(--grey99);
+  cursor: pointer;
 }
 
 .chart__levels {
@@ -182,4 +183,8 @@
   position: absolute;
   width: 100%;
   bottom: 0;
+}
+
+.chart__days.active {
+  color: var(--tomato);
 }

@@ -194,6 +194,7 @@ export function Timer() {
     if (!isOver && !isRest && typeof task === 'object') {
       //запишем в store нажатие на кнопку stop
       saveInStore(0, 0, 0, 1);
+
       document
         .querySelector('.container__timer')
         ?.classList.remove('add-background');
@@ -384,11 +385,11 @@ function getFormatTime(time: number | string): string {
   return String(Number(time) < 10 ? '0' + Number(time) : Number(time));
 }
 /**
- * функция даты в формате(деньМесяца_номерМесяца_дуньНедели)
+ * функция даты в формате(Год-номерМесяца-деньМесяца)
  * @returns - возвращаем строку
  */
 function getDateForId(): string {
   const today = new Date();
 
-  return `${today.getDate()}_${today.getMonth()}_${today.getDay()}`;
+  return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
 }
