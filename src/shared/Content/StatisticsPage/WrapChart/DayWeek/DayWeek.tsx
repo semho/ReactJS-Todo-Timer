@@ -3,13 +3,13 @@ import './dayweek.css';
 
 interface IDayProps {
   day: string;
-  time?: string | null;
+  time?: number;
 }
 
-export function DayWeek({ day, time = null }: IDayProps) {
+export function DayWeek({ day, time }: IDayProps) {
   let component: any = 'Нет данных';
 
-  if (time !== null) {
+  if (time) {
     component = getFullTime(time);
   }
 
@@ -21,10 +21,62 @@ export function DayWeek({ day, time = null }: IDayProps) {
   );
 }
 
-function getFullTime(time: string) {
+function getFullTime(time: number) {
   return (
     <div>
-      Вы работали над задачей в течение <span>{time}</span>
+      Вы работали над задачей в течение <span>{getTime(time)}</span>
     </div>
   );
+}
+
+/**
+ * Функция преобразовывает число в секундах в строку со временем
+ * @param sec - принимает число секунд всего
+ * @returns - возвращает строку со временем
+ */
+function getTime(sec: number): string {
+  const hours = Math.trunc(sec / 60 / 60);
+  const minutes = Math.trunc(sec / 60);
+  const seconds = sec % 60;
+
+  const arrHours: [string, string, string] = ['часа', 'часов', 'часов'];
+  const arrMinutes: [string, string, string] = ['минуты', 'минут', 'минут'];
+  const arrSeconds: [string, string, string] = ['секунды', 'секунд', 'секунд'];
+
+  if (hours !== 0) {
+    return `${hours} ${getDeclensionWordFromNumber(
+      hours,
+      arrHours
+    )} ${minutes} ${getDeclensionWordFromNumber(minutes, arrMinutes)}`;
+  } else if (minutes !== 0) {
+    return `${minutes} ${getDeclensionWordFromNumber(minutes, arrMinutes)}`;
+  } else {
+    return `${seconds} ${getDeclensionWordFromNumber(seconds, arrSeconds)}`;
+  }
+}
+
+/**
+ * функция склоняет слова в зависимости от числа
+ * @param number - число по которому склоняем
+ * @param titles - массив склоняемых(3 слова)
+ * @returns - возвращаем просклоняемую строку
+ */
+function getDeclensionWordFromNumber(
+  number: number,
+  titles: [string, string, string]
+) {
+  const decCache: [number] | [] = [];
+
+  function decOfNum(number: number, titles: [string, string, string]) {
+    const decCases = [2, 0, 1, 1, 1, 2];
+
+    if (!decCache[number])
+      decCache[number] =
+        number % 100 > 4 && number % 100 < 20
+          ? 2
+          : decCases[Math.min(number % 10, 5)];
+    return titles[decCache[number]];
+  }
+
+  return decOfNum(number, titles);
 }

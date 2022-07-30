@@ -172,6 +172,7 @@ export function Timer() {
     dispatch(
       addDayStatistics({
         id: getDateForId(),
+        numberDayWeek: new Date().getDay(),
         allTimeSpentWork: timeWork,
         amountTimeSpentPause: timePause,
         countFinishedTomato: countTomato,

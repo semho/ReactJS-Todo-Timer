@@ -12,6 +12,7 @@ interface IWrapProps {
 
 interface DayStatisticsState {
   id: string;
+  numberDayWeek: number;
   allTimeSpentWork: number;
   amountTimeSpentPause: number;
   countFinishedTomato: number;
@@ -29,10 +30,12 @@ export function WrapChart({ week }: IWrapProps) {
   const statistics = useAppSelector(selectStatistics);
   //получаем статистику за выбранную неделю
   const statisticsWeek = getStatistics(statistics, week);
-  console.log(statisticsWeek);
-
-  //выбранная неделя в селекте
-  // console.log(week);
+  //выбераем статистику за выбранный день
+  const dayWeek = statisticsWeek.find((item) => {
+    if (item.numberDayWeek === Number(getNumberDay(idDay))) {
+      return item;
+    }
+  });
 
   return (
     <div className="statistics-page__wrap-chart wrap-chart">
@@ -40,7 +43,7 @@ export function WrapChart({ week }: IWrapProps) {
         <Chart updateDayWeek={updateDayWeek} />
       </div>
       <div className="wrap-chart__day_week">
-        <DayWeek day={getDayWeek(idDay)} time="51 минуты" />
+        <DayWeek day={getDayWeek(idDay)} time={dayWeek?.allTimeSpentWork} />
       </div>
       <div className="wrap-chart__count">
         <CountTomato count={2} />
@@ -64,10 +67,21 @@ function getDayWeek(idDay: string): string {
     'Суббота',
   ];
 
-  const numberDay = Number(idDay.replace(/[^\d]/gi, ''));
+  const numberDay = getNumberDay(idDay);
 
   return days[numberDay];
 }
+/**
+ * Преобразуем строку id дня недели в число
+ * @param idDay - строка с id днем недели
+ * @returns - восвращаем только число
+ */
+function getNumberDay(idDay: string): number {
+  const numberDay = Number(idDay.replace(/[^\d]/gi, ''));
+
+  return numberDay;
+}
+
 /**
  * функция возвращает массив обектов статистики в зависимости от переданной недели
  * @param statistics - весь массив статистики

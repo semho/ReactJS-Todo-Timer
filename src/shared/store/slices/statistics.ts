@@ -3,8 +3,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
 /**
  * интерфейс хранения данных статистики
- * @param id - день месяца с номером месяца и днем недели(формат 1_1_0 - день_месяц_деньНедели)
- * день начинается с 1 до 31, месяц с 0 до 11, день недели с 0(воскресенье) до 6
+ * @param id - год с номером месяца и днем месяца(формат ХХХХ-ХХ-ХХ - год-месяц-день)
+ * @param numberDayWeek - номер дня недели
  * @param allTimeSpentWork - общее потраченное время над задачами(в течении дня)
  * @param amountTimeSpentPause - время на паузе(в течении дня)
  * @param countFinishedTomato - количество выполненых помидор(в течении дня)
@@ -12,6 +12,7 @@ import type { RootState } from '../store';
  */
 interface DayStatisticsState {
   id: string;
+  numberDayWeek: number;
   allTimeSpentWork: number;
   amountTimeSpentPause: number;
   countFinishedTomato: number;
