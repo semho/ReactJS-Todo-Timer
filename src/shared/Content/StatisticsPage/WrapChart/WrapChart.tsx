@@ -46,7 +46,7 @@ export function WrapChart({ week }: IWrapProps) {
         <DayWeek day={getDayWeek(idDay)} time={dayWeek?.allTimeSpentWork} />
       </div>
       <div className="wrap-chart__count">
-        <CountTomato count={2} />
+        <CountTomato count={dayWeek?.countFinishedTomato} />
       </div>
     </div>
   );
