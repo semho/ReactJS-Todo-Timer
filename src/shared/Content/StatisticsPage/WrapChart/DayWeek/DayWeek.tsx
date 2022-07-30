@@ -49,6 +49,11 @@ function getTime(sec: number): string {
       hours,
       arrHours
     )} ${minutes} ${getDeclensionWordFromNumber(minutes, arrMinutes)}`;
+  } else if (minutes !== 0 && seconds !== 0) {
+    return `${minutes} ${getDeclensionWordFromNumber(
+      minutes,
+      arrMinutes
+    )} ${seconds} ${getDeclensionWordFromNumber(seconds, arrSeconds)}`;
   } else if (minutes !== 0) {
     return `${minutes} ${getDeclensionWordFromNumber(minutes, arrMinutes)}`;
   } else {

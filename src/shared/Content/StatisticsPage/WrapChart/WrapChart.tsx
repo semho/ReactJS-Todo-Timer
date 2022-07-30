@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppSelector } from '../../../../hooks/hooksStore';
 import { selectStatistics } from '../../../store/slices/statistics';
 import { Chart } from './Chart';
@@ -8,6 +8,7 @@ import './wrapchart.css';
 
 interface IWrapProps {
   week: string;
+  updateDay: (obj?: DayStatisticsState) => void;
 }
 
 interface DayStatisticsState {
@@ -19,7 +20,7 @@ interface DayStatisticsState {
   countStop: number;
 }
 
-export function WrapChart({ week }: IWrapProps) {
+export function WrapChart({ week, updateDay }: IWrapProps) {
   //стейт под день недели
   const [idDay, setIdDay] = useState('day0');
   //функция через которую обновляем день недели из компонента Chart
@@ -30,12 +31,18 @@ export function WrapChart({ week }: IWrapProps) {
   const statistics = useAppSelector(selectStatistics);
   //получаем статистику за выбранную неделю
   const statisticsWeek = getStatistics(statistics, week);
+
   //выбераем статистику за выбранный день
   const dayWeek = statisticsWeek.find((item) => {
     if (item.numberDayWeek === Number(getNumberDay(idDay))) {
       return item;
     }
   });
+
+  useEffect(() => {
+    //передаем родителю стейт
+    updateDay(dayWeek);
+  }, [dayWeek, updateDay]);
 
   return (
     <div className="statistics-page__wrap-chart wrap-chart">
