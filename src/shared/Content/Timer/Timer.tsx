@@ -248,6 +248,7 @@ export function Timer() {
         count={tomatoNumber}
         task={task?.text}
         status={`${isTaskActive && !isRest ? 'run' : isRest ? 'rest' : 'stop'}`}
+        isRest={isRest}
       />
       <div className="timer__content">
         <div className="timer__duration">
