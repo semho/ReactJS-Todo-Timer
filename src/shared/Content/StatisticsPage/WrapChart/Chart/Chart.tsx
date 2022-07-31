@@ -5,17 +5,14 @@ import './chart.css';
 
 interface IChartProps {
   updateDayWeek: (value: string) => void;
-  objectForBars: {
-    [id: string]: number;
-  };
+  objectForBars: Bar;
 }
 
-export function Chart({ updateDayWeek, objectForBars }: IChartProps) {
-  //константа на одну помидорку
-  const TIME_TASK = 25;
-  //примем за максимальное значение и полный бар - время потраченное на 5 помидорок
-  const MAX_TIME = TIME_TASK * 5 * 60;
+type Bar = {
+  [id: string]: number;
+};
 
+export function Chart({ updateDayWeek, objectForBars }: IChartProps) {
   function handleClick(event: React.MouseEvent<HTMLElement>) {
     //убираем активный класс у всех дней недели
     const days = Array.from(document.querySelectorAll('.chart__days'));
@@ -40,6 +37,8 @@ export function Chart({ updateDayWeek, objectForBars }: IChartProps) {
       }
     }
   }
+  //расчитаем начальное значение маркировки для оси Y
+  const startValue = 0.2 * getMaxValueObj(objectForBars);
 
   return (
     <div className="chart-container chart" onClick={handleClick}>
@@ -48,31 +47,73 @@ export function Chart({ updateDayWeek, objectForBars }: IChartProps) {
       <div className="level4 chart__levels"></div>
       <div className="level5 chart__levels"></div>
       <div className="empty"></div>
-      <div className="unit1 chart__units">25 мин</div>
+
       <div className="unit5 chart__units"></div>
-      <div className="unit4 chart__units">1 ч 40 мин</div>
-      <div className="unit3 chart__units">1 ч 15 мин</div>
-      <div className="unit2 chart__units">50 мин</div>
+      <div className="unit4 chart__units">
+        {getTimeFromMinutes(startValue * 4)}
+      </div>
+      <div className="unit3 chart__units">
+        {getTimeFromMinutes(startValue * 3)}
+      </div>
+      <div className="unit2 chart__units">
+        {getTimeFromMinutes(startValue * 2)}
+      </div>
+      <div className="unit1 chart__units">{getTimeFromMinutes(startValue)}</div>
       <div className="graph1 chart__graphs">
-        <Bar height={getPercentages(MAX_TIME, objectForBars[1])} />
+        <Bar
+          height={getPercentages(
+            getMaxValueObj(objectForBars),
+            objectForBars[1]
+          )}
+        />
       </div>
       <div className="graph2 chart__graphs">
-        <Bar height={getPercentages(MAX_TIME, objectForBars[2])} />
+        <Bar
+          height={getPercentages(
+            getMaxValueObj(objectForBars),
+            objectForBars[2]
+          )}
+        />
       </div>
       <div className="graph3 chart__graphs">
-        <Bar height={getPercentages(MAX_TIME, objectForBars[3])} />
+        <Bar
+          height={getPercentages(
+            getMaxValueObj(objectForBars),
+            objectForBars[3]
+          )}
+        />
       </div>
       <div className="graph4 chart__graphs">
-        <Bar height={getPercentages(MAX_TIME, objectForBars[4])} />
+        <Bar
+          height={getPercentages(
+            getMaxValueObj(objectForBars),
+            objectForBars[4]
+          )}
+        />
       </div>
       <div className="graph5 chart__graphs">
-        <Bar height={getPercentages(MAX_TIME, objectForBars[5])} />
+        <Bar
+          height={getPercentages(
+            getMaxValueObj(objectForBars),
+            objectForBars[5]
+          )}
+        />
       </div>
       <div className="graph6 chart__graphs">
-        <Bar height={getPercentages(MAX_TIME, objectForBars[6])} />
+        <Bar
+          height={getPercentages(
+            getMaxValueObj(objectForBars),
+            objectForBars[6]
+          )}
+        />
       </div>
       <div className="graph0 chart__graphs">
-        <Bar height={getPercentages(MAX_TIME, objectForBars[0])} />
+        <Bar
+          height={getPercentages(
+            getMaxValueObj(objectForBars),
+            objectForBars[0]
+          )}
+        />
       </div>
       <div className="day1 chart__days" id="day1">
         Пн
@@ -121,4 +162,33 @@ function getPercentages(max: number, value: number): number {
   if (ratio < 1) return 1;
 
   return ratio;
+}
+
+/**
+ * функция получает объект, перебирает его свойства и возвращает максимальное число свойства
+ * @param obj - объект с свойствами
+ * @returns - возвращает максимальное число  значения свойства объектов
+ */
+function getMaxValueObj(obj: Bar): number {
+  let max = -Infinity;
+
+  for (const x in obj) {
+    if (obj[x] > max) max = obj[x];
+  }
+
+  return max;
+}
+
+/**
+ * Функция преобразовывает число в минутах в строку в формате "ХХ час ХХ мин"
+ * @param min - принимает число минут всего
+ * @returns - возвращает строку вида (часы минуты)
+ */
+function getTimeFromMinutes(min: number): string {
+  const hours = Math.trunc(min / 60 / 60);
+  const minutes = Math.trunc(min / 60) % 60;
+  if (hours === 0) {
+    return minutes + ' мин';
+  }
+  return hours + ' ч ' + minutes + ' м';
 }
