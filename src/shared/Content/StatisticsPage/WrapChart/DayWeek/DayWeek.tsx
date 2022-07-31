@@ -37,7 +37,7 @@ function getFullTime(time: number) {
  */
 function getTime(sec: number): string {
   const hours = Math.trunc(sec / 60 / 60);
-  const minutes = Math.trunc(sec / 60);
+  const minutes = Math.trunc(sec / 60) % 60;
   const seconds = sec % 60;
 
   const arrHours: [string, string, string] = ['часа', 'часов', 'часов'];

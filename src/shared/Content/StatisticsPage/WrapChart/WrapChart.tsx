@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useAppSelector } from '../../../../hooks/hooksStore';
+import { getNumberDay } from '../../../../utils/removeSymbols';
 import { selectStatistics } from '../../../store/slices/statistics';
 import { Chart } from './Chart';
 import { CountTomato } from './CountTomato';
 import { DayWeek } from './DayWeek';
+
 import './wrapchart.css';
 
 interface IWrapProps {
@@ -38,6 +40,12 @@ export function WrapChart({ week, updateDay }: IWrapProps) {
       return item;
     }
   });
+  //выберем только нужные данные для баров графика и поместим все в объект
+  const objectForBars = statisticsWeek.reduce(
+    (obj, item) =>
+      Object.assign(obj, { [item.numberDayWeek]: item.allTimeSpentWork }),
+    {}
+  );
 
   useEffect(() => {
     //передаем родителю стейт
@@ -47,7 +55,7 @@ export function WrapChart({ week, updateDay }: IWrapProps) {
   return (
     <div className="statistics-page__wrap-chart wrap-chart">
       <div className="wrap-chart__chart">
-        <Chart updateDayWeek={updateDayWeek} />
+        <Chart updateDayWeek={updateDayWeek} objectForBars={objectForBars} />
       </div>
       <div className="wrap-chart__day_week">
         <DayWeek day={getDayWeek(idDay)} time={dayWeek?.allTimeSpentWork} />
@@ -78,16 +86,6 @@ function getDayWeek(idDay: string): string {
 
   return days[numberDay];
 }
-/**
- * Преобразуем строку id дня недели в число
- * @param idDay - строка с id днем недели
- * @returns - восвращаем только число
- */
-function getNumberDay(idDay: string): number {
-  const numberDay = Number(idDay.replace(/[^\d]/gi, ''));
-
-  return numberDay;
-}
 
 /**
  * функция возвращает массив обектов статистики в зависимости от переданной недели
@@ -99,13 +97,11 @@ function getStatistics(statistics: DayStatisticsState[], week: string) {
   const currentWeek = getStatisticsForWeek(statistics);
   const lastWeek = getStatisticsForWeek(statistics, 7);
   const twoWeeksAgo = getStatisticsForWeek(statistics, 14);
-
   if (week === '2lastWeek') {
     return twoWeeksAgo;
   } else if (week === 'lastWeek') {
     return lastWeek;
   }
-
   return currentWeek;
 }
 /**
@@ -116,7 +112,10 @@ function getStatistics(statistics: DayStatisticsState[], week: string) {
  */
 function getStatisticsForWeek(statistics: DayStatisticsState[], daysAgo = 0) {
   const curr = new Date();
-  const first = curr.getDate() - (curr.getDay() + daysAgo);
+
+  const first =
+    curr.getDate() - ((curr.getDay() === 0 ? 7 : curr.getDay()) + daysAgo);
+
   const last = first + 7;
 
   const firstday = new Date(curr.setDate(first));
