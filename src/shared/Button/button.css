@@ -52,3 +52,7 @@
   fill: #c4c4c4;
   cursor: no-drop;
 }
+
+.btn-theme {
+  padding: 5px 40px;
+}

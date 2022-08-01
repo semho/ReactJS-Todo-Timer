@@ -256,7 +256,16 @@ export function Timer() {
             <div className="timer__item timer__minutes">
               {getFormatTime(customTime)}
             </div>
-            <div className="timer__item timer__seconds">00</div>
+            {/* <div className="timer__item timer__seconds">00</div> */}
+            <div
+              className={`${
+                isTaskActive && !isResume
+                  ? 'timer__item timer__seconds timer__seconds--active'
+                  : 'timer__item timer__seconds'
+              }`}
+            >
+              00
+            </div>
           </div>
           {!isRunning && !isResume && (
             <AddButton className="active" onClick={addMinutes} />

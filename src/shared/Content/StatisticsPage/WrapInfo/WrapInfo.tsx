@@ -33,7 +33,7 @@ export function WrapInfo({ day }: IInfoProps) {
           icon="focus"
           title="Фокус"
           value={day.countFinishedTomato > 0 ? focus : 0}
-          background="beige"
+          background={day.countFinishedTomato > 0 ? 'beige' : undefined}
         />
       </div>
       <div className="wrap-info__time-pause">

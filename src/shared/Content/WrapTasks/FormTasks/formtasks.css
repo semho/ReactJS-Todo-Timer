@@ -10,6 +10,8 @@
   border: none !important;
   border-radius: 0 !important;
   background-color: var(--grayF4) !important;
+  color: var(--black) !important;
+  transition: color, background-color 0.3s linear;
 }
 
 .form-tasks__input:focus {

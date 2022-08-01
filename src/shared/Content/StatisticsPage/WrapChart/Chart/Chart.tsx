@@ -176,6 +176,8 @@ function getMaxValueObj(obj: Bar): number {
     if (obj[x] > max) max = obj[x];
   }
 
+  if (max < 0) return 0;
+
   return max;
 }
 

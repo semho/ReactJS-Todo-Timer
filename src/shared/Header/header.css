@@ -3,6 +3,10 @@
   box-shadow: 0px 10px 63px rgba(0, 0, 0, 0.07);
 }
 
+html[data-theme='dark'] .app__header {
+  background-color: var(--grey30);
+}
+
 .header__container {
   height: 100%;
 }
@@ -40,4 +44,8 @@
   line-height: 17px;
   color: var(--tomato);
   transform: translate(-5px, 4px);
+}
+
+.header__right-group-btn {
+  margin-right: 10px;
 }

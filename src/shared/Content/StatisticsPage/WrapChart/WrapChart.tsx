@@ -33,7 +33,6 @@ export function WrapChart({ week, updateDay }: IWrapProps) {
   const statistics = useAppSelector(selectStatistics);
   //получаем статистику за выбранную неделю
   const statisticsWeek = getStatistics(statistics, week);
-
   //выбераем статистику за выбранный день
   const dayWeek = statisticsWeek.find((item) => {
     if (item.numberDayWeek === Number(getNumberDay(idDay))) {
@@ -111,15 +110,14 @@ function getStatistics(statistics: DayStatisticsState[], week: string) {
  * @returns возвращает массив объектов выбранной недели
  */
 function getStatisticsForWeek(statistics: DayStatisticsState[], daysAgo = 0) {
-  const curr = new Date();
+  const curr = new Date(new Date().setHours(0, 0, 0, 0));
 
   const first =
-    curr.getDate() - ((curr.getDay() === 0 ? 7 : curr.getDay()) + daysAgo);
-
-  const last = first + 7;
+    curr.getDate() - ((curr.getDay() === 0 ? 7 : curr.getDay()) + daysAgo) + 1;
 
   const firstday = new Date(curr.setDate(first));
-  const lastday = new Date(curr.setDate(last));
+
+  const lastday = new Date(curr.setDate(curr.getDate() + 6));
 
   const week = statistics.filter((item) => {
     const date = new Date(item.id);

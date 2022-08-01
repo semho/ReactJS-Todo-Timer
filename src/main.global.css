@@ -44,7 +44,30 @@
     url('./fonts/SFUIDisplay-Ultralight.woff') format('woff');
 }
 
-:root {
+/* :root {
+  --black: #333333;
+  --beige: #ffdda9;
+  --lilac: #dfdcfe;
+  --turquoise: #c5f1ff;
+  --green: #a8b64f;
+  --greenHover: #899441;
+  --tomato: #dc3e22;
+  --tomatoMid: #ee735d;
+  --tomatoLight: #ea8979;
+  --tomatoHight: #b7280f;
+  --whiteLightness: 100%;
+  --white: hsl(0, 0%, var(--whiteLightness));
+  --grayF4: hsl(0, 0%, calc(var(--whiteLightness) - 4%));
+  --greyF3: hsl(0, 0%, calc(var(--whiteLightness) - 5%));
+  --greyEC: hsl(0, 0%, calc(var(--whiteLightness) - 7%));
+  --greyE4: hsl(0, 0%, calc(var(--whiteLightness) - 10%));
+  --greyD9: hsl(0, 0%, calc(var(--whiteLightness) - 15%));
+  --greyC4: hsl(0, 0%, calc(var(--whiteLightness) - 23%));
+  --grey99: hsl(0, 0%, calc(var(--whiteLightness) - 40%));
+  --grey66: hsl(0, 0%, calc(var(--whiteLightness) - 60%));
+} */
+
+html[data-theme='light'] {
   --black: #333333;
   --beige: #ffdda9;
   --lilac: #dfdcfe;
@@ -67,14 +90,39 @@
   --grey66: hsl(0, 0%, calc(var(--whiteLightness) - 60%));
 }
 
+html[data-theme='dark'] {
+  --black: hsl(0, 0%, 70%);
+  --beige: #ffdda9;
+  --lilac: #dfdcfe;
+  --turquoise: #c5f1ff;
+  --green: #a8b64f;
+  --greenHover: #899441;
+  --tomato: #dc3e22;
+  --tomatoMid: #ee735d;
+  --tomatoLight: #ea8979;
+  --tomatoHight: #b7280f;
+  --whiteLightness: 20%;
+  --white: hsl(0, 0%, var(--whiteLightness));
+  --grayF4: hsl(0, 0%, calc(var(--whiteLightness) - 4%));
+  --greyF3: hsl(0, 0%, calc(var(--whiteLightness) - 5%));
+  --greyEC: hsl(0, 0%, calc(var(--whiteLightness) - 7%));
+  --greyE4: hsl(0, 0%, calc(var(--whiteLightness) - 10%));
+  --greyD9: hsl(0, 0%, calc(var(--whiteLightness) - 15%));
+  --greyC4: hsl(0, 0%, calc(var(--whiteLightness) - 23%));
+  --grey99: hsl(0, 0%, 70%);
+  --grey66: hsl(0, 0%, calc(var(--whiteLightness) - 60%));
+  --grey30: hsl(0, 0%, 30%);
+}
+
 body {
   padding: 0;
   margin: 0;
-  background-color: var(--white);
+  background-color: var(--white) !important;
   font-size: 16px;
   line-height: 33px;
   font-family: 'SF UI';
   font-weight: 400;
+  transition: color, background-color 0.3s linear;
 }
 
 * {
@@ -99,4 +147,5 @@ button {
   border: 0;
   background: transparent;
   cursor: pointer;
+  transition: color, background-color 0.3s ease-in-out;
 }
