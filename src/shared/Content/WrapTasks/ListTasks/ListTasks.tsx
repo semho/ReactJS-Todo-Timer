@@ -4,7 +4,6 @@ import { useAppSelector } from '../../../../hooks/hooksStore';
 import { selectTask } from '../../../store/slices/tasks';
 import './listtasks.css';
 import { Menu } from './Menu';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 interface ITaskProps {
   text?: string;
@@ -61,27 +60,19 @@ export function ListTasks() {
   return (
     <div className="wrap-tasks__list-tasks list-tasks">
       <ul className="list-tasks__list">
-        <TransitionGroup>
-          {tasks.map((item) => (
-            <CSSTransition
-              key={item.id}
-              timeout={300}
-              classNames="list-tasks__item-transition"
-            >
-              <li
-                key={item.id}
-                id={item.id}
-                className="list-tasks__item-task item-task"
-              >
-                <div className="item-task__wrap">
-                  <span className="item-task__count">{item.count}</span>
-                  {item.text}
-                  <Menu />
-                </div>
-              </li>
-            </CSSTransition>
-          ))}
-        </TransitionGroup>
+        {tasks.map((item) => (
+          <li
+            key={item.id}
+            id={item.id}
+            className="list-tasks__item-task item-task"
+          >
+            <div className="item-task__wrap">
+              <span className="item-task__count">{item.count}</span>
+              {item.text}
+              <Menu />
+            </div>
+          </li>
+        ))}
       </ul>
 
       <div
@@ -91,8 +82,7 @@ export function ListTasks() {
             : 'wrap-tasks__all-time'
         }`}
       >
-        {/* {isShowTimeTasks ? sumTimeTask : ''} */}
-        {sumTimeTask}
+        {isShowTimeTasks ? sumTimeTask : ''}
       </div>
     </div>
   );

@@ -7,6 +7,8 @@ import { AddButton } from '../../Button/AddButton';
 import { addDayStatistics } from '../../store/slices/statistics';
 import { removeTask, selectTask } from '../../store/slices/tasks';
 import { HeaderTimer } from './HeaderTimer';
+import { ToastContainer, toast } from 'react-toast';
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const notification = require('../../../audio/notification.wav');
 import './timer.css';
@@ -19,8 +21,8 @@ interface ITaskProps {
 }
 
 export function Timer() {
-  const TIME_TASK = 25;
-  const TIME_REST_SHORT = 5;
+  const TIME_TASK = 0.1;
+  const TIME_REST_SHORT = 0.1;
   const TIME_REST_LONG = 30;
   //подключаем store
   const dispatch = useAppDispatch();
@@ -120,6 +122,12 @@ export function Timer() {
     showTimeInDOM(boxMinutes, boxSeconds, timerMinutes, timerSeconds);
     //если время закончилось, останавливаем счетчик
     if (count <= 0) {
+      if (task?.count !== tomatoNumber) {
+        isRest
+          ? toast.success('Время перерыва истекло!')
+          : toast.success('Время работы истекло!');
+      }
+
       pomodoroIsOver();
     }
   }
@@ -130,6 +138,7 @@ export function Timer() {
     if (!isRest && typeof task === 'object') {
       saveInStore(0, 0, 1, 0);
     }
+
     //если число помидор из задачи совпало с числом выполненых помидор
     if (task?.count === tomatoNumber) {
       //показываем уведомление
@@ -244,6 +253,7 @@ export function Timer() {
 
   return (
     <div className="timer">
+      <ToastContainer delay={10000} position="bottom-center" />
       <HeaderTimer
         count={tomatoNumber}
         task={task?.text}
@@ -279,7 +289,6 @@ export function Timer() {
           <span>Задача {numberTask} - </span>
           {task?.text}
         </div>
-
         {!isRunning && !isResume && (
           <div className="timer__wrap-button">
             <Button

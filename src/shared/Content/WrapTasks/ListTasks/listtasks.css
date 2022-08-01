@@ -6,6 +6,7 @@
 
 .item-task {
   border-bottom: 1px solid var(--greyE4);
+  animation: ani 2s ease;
 }
 
 html[data-theme='dark'] .item-task {
@@ -42,11 +43,10 @@ html[data-theme='dark'] .item-task__count {
   font-weight: 300;
   line-height: 14px;
   color: var(--grey99);
-  opacity: 0;
 }
 
 .wrap-tasks__all-time--active {
-  animation: ani 3s ease;
+  animation: ani 2s ease;
 }
 
 @keyframes ani {

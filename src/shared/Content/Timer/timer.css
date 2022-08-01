@@ -145,3 +145,19 @@
     transform: translateY(50%);
   }
 }
+
+.toast:not(.show) {
+  display: flex;
+}
+
+.toast {
+  padding: 15px;
+  min-width: 300px;
+  max-width: 400px;
+  color: var(--toast-white);
+  display: flex;
+  align-items: flex-start;
+  line-height: 1.6;
+  font-size: 14px;
+  border-radius: 15px;
+}
