@@ -21,9 +21,10 @@ interface ITaskProps {
 }
 
 export function Timer() {
-  const TIME_TASK = 25;
-  const TIME_REST_SHORT = 5;
-  const TIME_REST_LONG = 30;
+  const TIME_TASK = 25; //время работы одной помидоры
+  const TIME_REST_SHORT = 5; //время короткого перерыва
+  const TIME_REST_LONG = 30; //время длинного перерыва
+  const POSITION_REST_LONG = 4; //позиция длинного отдыха
   //подключаем store
   const dispatch = useAppDispatch();
 
@@ -41,10 +42,10 @@ export function Timer() {
 
   //стейт статуса отдыха
   const [isRest, setIsRest] = useState(false);
-  //пременная для хранения текущего времени таймера
+  //переменная для хранения текущего времени таймера
   let timeForTimer = Number(TIME_TASK);
   //если это отдых, перезапишем переменную
-  if (isRest && sessionNumber === 4) {
+  if (isRest && sessionNumber === POSITION_REST_LONG) {
     timeForTimer = Number(TIME_REST_LONG);
   } else if (isRest) {
     timeForTimer = Number(TIME_REST_SHORT);
@@ -143,21 +144,25 @@ export function Timer() {
     if (task?.count === tomatoNumber) {
       //показываем уведомление
       setIsShowFinishedTask(true);
-      //удаляем задачу из списка задач
-      if (id) {
-        dispatch(removeTask(id));
-      }
-      setTomatoNumber(1);
-      //убираем блокирующие стили
-      document
-        .querySelector('.container__timer')
-        ?.classList.remove('add-background');
     }
 
     stop();
     playNotification();
     setIsRest(!isRest);
   }
+  //функция удаляет задачу
+  function deleteTask() {
+    //удаляем задачу из списка задач
+    if (id) {
+      dispatch(removeTask(id));
+    }
+    setTomatoNumber(1);
+    //убираем блокирующие стили
+    document
+      .querySelector('.container__timer')
+      ?.classList.remove('add-background');
+  }
+
   //функция по увеличению времени на четвертый отдых
   function longRest() {
     if (isRest) setSessionNumber(sessionNumber + 1);
@@ -353,7 +358,7 @@ export function Timer() {
               Чтобы создать новую задачу или выбрать уже созданную, перейдите на
               главную страницу
             </p>
-            <Link className="messge__link" to="/">
+            <Link className="messge__link" to="/" onClick={deleteTask}>
               <Button variant="green" type="button" title={'Перейти'} />
             </Link>
           </div>

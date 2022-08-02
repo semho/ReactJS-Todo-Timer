@@ -47,7 +47,7 @@
   grid-area: wrap-settings__empty;
 }
 
-.cell {
+.cell-setting {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
