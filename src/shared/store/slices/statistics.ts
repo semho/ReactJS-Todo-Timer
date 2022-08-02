@@ -24,7 +24,9 @@ interface StatisticsState {
 }
 //начальное состояние Статистики
 const initialState: StatisticsState = {
-  statistics: [],
+  statistics: localStorage.getItem('statistics')
+    ? JSON.parse(localStorage.getItem('statistics') || '{}')
+    : [],
 };
 /**
  * name - название стейта, будет видно в devTools
@@ -65,25 +67,6 @@ export const storeStatistics = createSlice({
         state.statistics.push(action.payload);
       }
     },
-    // addStop: (state, action: PayloadAction<DayStatisticsState>) => {
-    //   //флаг на существования записи
-    //   let isExist = false;
-    //   //перебираем массив с записями
-    //   state.statistics = state.statistics.map((item) => {
-    //     if (item.id === action.payload.id) {
-    //       isExist = true;
-    //       return {
-    //         ...item,
-    //         countStop: item.countStop + action.payload.countStop,
-    //       };
-    //     }
-    //     return item;
-    //   });
-    //   //если записей нет с указанным id, добавляем весь объект в хранилище
-    //   if (!isExist) {
-    //     state.statistics.push(action.payload);
-    //   }
-    // },
   },
 });
 

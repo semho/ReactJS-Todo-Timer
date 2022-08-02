@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 import { useTheme } from './../../hooks/useTheme';
 import { Button } from '../Button';
+import { SettingsIcon } from '../Icons/SettingsIcon';
 
 export function Header() {
   const { theme, setTheme } = useTheme();
@@ -62,6 +63,10 @@ export function Header() {
           <Link to="/statistics" className="header__link-wrap">
             <Icon name={EIcons.statistics} />
             <span className="header__link">Статистика</span>
+          </Link>
+          <Link to="/settings" className="header__link-wrap">
+            <SettingsIcon className="header__svg-setting" />
+            <span className="header__link">Настройки</span>
           </Link>
         </div>
       </Container>

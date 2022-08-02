@@ -4,6 +4,7 @@
   grid-template-rows: 84px 1px 83px 1px 83px 1px 83px 1px 83px 51px;
   gap: 0px 0px;
   grid-auto-flow: row;
+  transition: color, background-color 0.3s linear;
 }
 
 .level2 {
@@ -77,76 +78,91 @@
 .day1 {
   grid-area: 10 / 2 / 11 / 3;
   background: var(--greyEC);
+  transition: color, background-color 0.3s linear;
 }
 
 .day2 {
   grid-area: 10 / 4 / 11 / 5;
   background: var(--greyEC);
+  transition: color, background-color 0.3s linear;
 }
 
 .day3 {
   grid-area: 10 / 6 / 11 / 7;
   background: var(--greyEC);
+  transition: color, background-color 0.3s linear;
 }
 
 .day4 {
   grid-area: 10 / 8 / 11 / 9;
   background: var(--greyEC);
+  transition: color, background-color 0.3s linear;
 }
 
 .day5 {
   grid-area: 10 / 10 / 11 / 11;
   background: var(--greyEC);
+  transition: color, background-color 0.3s linear;
 }
 
 .day6 {
   grid-area: 10 / 12 / 11 / 13;
   background: var(--greyEC);
+  transition: color, background-color 0.3s linear;
 }
 
 .day0 {
   grid-area: 10 / 14 / 11 / 15;
   background: var(--greyEC);
+  transition: color, background-color 0.3s linear;
 }
 
 .footer_empty {
   grid-area: 10 / 15 / 11 / 20;
   background: var(--greyEC);
+  transition: color, background-color 0.3s linear;
 }
 
 .footer1 {
   grid-area: 10 / 1 / 11 / 2;
   background: var(--greyEC);
+  transition: color, background-color 0.3s linear;
 }
 
 .footer2 {
   grid-area: 10 / 3 / 11 / 4;
   background: var(--greyEC);
+  transition: color, background-color 0.3s linear;
 }
 
 .footer3 {
   grid-area: 10 / 5 / 11 / 6;
   background: var(--greyEC);
+  transition: color, background-color 0.3s linear;
 }
 
 .footer4 {
   grid-area: 10 / 7 / 11 / 8;
   background: var(--greyEC);
+  transition: color, background-color 0.3s linear;
 }
 
 .footer5 {
   grid-area: 10 / 9 / 11 / 10;
   background: var(--greyEC);
+  transition: color, background-color 0.3s linear;
 }
 
 .footer6 {
   grid-area: 10 / 11 / 11 / 12;
   background: var(--greyEC);
+  transition: color, background-color 0.3s linear;
 }
 
 .footer0 {
   grid-area: 10 / 13 / 11 / 14;
   background: var(--greyEC);
+  transition: color, background-color 0.3s linear;
 }
 
 .chart__days {
@@ -159,6 +175,7 @@
   line-height: 29px;
   color: var(--grey99);
   cursor: pointer;
+  transition: color, background-color 0.3s linear;
 }
 
 .chart__levels {

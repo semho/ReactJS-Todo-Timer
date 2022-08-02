@@ -16,10 +16,13 @@ interface changeTaskState {
 interface TasksState {
   tasks: TaskState[];
 }
-//начальное состояние задачи
+//начальное состояние задачи. Если есть localStore, получаем его данные
 const initialState: TasksState = {
-  tasks: [],
+  tasks: localStorage.getItem('tasks')
+    ? JSON.parse(localStorage.getItem('tasks') || '{}')
+    : [],
 };
+
 /**
  * name - название стейта, будет видно в devTools
  * initialState - передаем начальное состояние в стейт
@@ -97,5 +100,6 @@ export const { addTask, removeTask, addTimeTask, downTimeTask, changeTask } =
   storeTasks.actions;
 //стейты задач
 export const selectTask = (state: RootState) => state.tasks.tasks;
+
 //выгружаем редьюсер для главного стора
 export default storeTasks.reducer;

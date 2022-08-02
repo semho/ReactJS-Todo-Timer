@@ -14,6 +14,7 @@ import { Provider } from 'react-redux';
 import { store } from './shared/store/store';
 import { MainAndModal } from './shared/Content/MainAndModal';
 import { Timer } from './shared/Content/Timer';
+import { SettingsPage } from './shared/Content/SettingsPage';
 
 //для 18 версии react инициализация приложения поменялась
 const rootElement = document.getElementById('root');
@@ -39,6 +40,7 @@ const render = (Component) => {
               </Route>
               <Route path="/tasks/:id" element={<MainAndModal />} />
               <Route path="statistics" element={<StatisticsPage />} />
+              <Route path="settings" element={<SettingsPage />} />
               <Route
                 path="*"
                 element={

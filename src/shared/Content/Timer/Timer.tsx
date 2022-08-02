@@ -21,8 +21,8 @@ interface ITaskProps {
 }
 
 export function Timer() {
-  const TIME_TASK = 0.1;
-  const TIME_REST_SHORT = 0.1;
+  const TIME_TASK = 25;
+  const TIME_REST_SHORT = 5;
   const TIME_REST_LONG = 30;
   //подключаем store
   const dispatch = useAppDispatch();

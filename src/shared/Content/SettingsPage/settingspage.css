@@ -1,0 +1,65 @@
+.settings-page__title-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.settings-page__title {
+  margin-bottom: 40px;
+  font-family: 'SF UI';
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 33px;
+}
+
+.settings-page__wrap-settings {
+  display: grid;
+  grid-template-columns: 405px 32px 405px 32px 405px;
+  grid-template-rows: 179px 32px 179px;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    'wrap-settings__time-tomato . wrap-settings__time-rest-short . wrap-settings__time-rest-long'
+    '. . . . .'
+    'wrap-settings__number-rest-long . wrap-settings__empty . wrap-settings__conrol-notifications';
+}
+
+.wrap-settings__time-tomato {
+  grid-area: wrap-settings__time-tomato;
+}
+
+.wrap-settings__time-rest-short {
+  grid-area: wrap-settings__time-rest-short;
+}
+
+.wrap-settings__time-rest-long {
+  grid-area: wrap-settings__time-rest-long;
+}
+
+.wrap-settings__number-rest-long {
+  grid-area: wrap-settings__number-rest-long;
+}
+
+.wrap-settings__conrol-notifications {
+  grid-area: wrap-settings__conrol-notifications;
+}
+
+.wrap-settings__empty {
+  grid-area: wrap-settings__empty;
+}
+
+.cell {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 25px;
+  height: 100%;
+  background-color: var(--grayF4);
+  transition: color, background-color 0.3s linear;
+}
+
+.cell__title {
+  margin-bottom: 15px;
+  font-family: 'SF UI';
+  line-height: 33px;
+  font-weight: 700;
+}

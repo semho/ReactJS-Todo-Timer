@@ -1,10 +1,13 @@
 .chart__graphs-value--red {
   background: var(--tomatoMid);
+  transition: color, background-color 0.3s linear;
 }
 .chart__graphs-value--gray {
   background: var(--greyC4);
+  transition: color, background-color 0.3s linear;
 }
 
 .active .chart__graphs-value--red {
   background: var(--tomato);
+  transition: color, background-color 0.3s linear;
 }
