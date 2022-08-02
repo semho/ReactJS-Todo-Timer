@@ -10,7 +10,7 @@ export function SettingsPage() {
         <h4 className="settings-page__title">Настройки</h4>
       </div>
 
-      <form className="settings-page__wrap-settings">
+      <div className="settings-page__wrap-settings">
         <div className="cell-setting wrap-settings__time-tomato time-tomato">
           <CellSetting
             title='Продолжительность "помидора"'
@@ -26,7 +26,8 @@ export function SettingsPage() {
         <div className="cell-setting wrap-settings__number-rest-long">
           <CellSetting
             title="Позиция длинного перерыва"
-            idInput="input-number-long"
+            idInput="input-position-long"
+            position={true}
           />
         </div>
         <div className="cell-setting wrap-settings__conrol-notifications">
@@ -35,7 +36,7 @@ export function SettingsPage() {
           <Button variant="red" type="button" title="Выключить?" />
         </div>
         <div className=" wrap-settings__empty"></div>
-      </form>
+      </div>
     </div>
   );
 }

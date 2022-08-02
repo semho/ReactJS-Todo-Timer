@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../../../hooks/hooksStore';
+import {
+  ChangeSettingState,
+  selectSettings,
+} from '../../../store/slices/settings';
 import { selectTask } from '../../../store/slices/tasks';
 import './listtasks.css';
 import { Menu } from './Menu';
@@ -13,8 +17,13 @@ interface ITaskProps {
 }
 
 export function ListTasks() {
+  const settings: ChangeSettingState[] = useAppSelector(selectSettings);
+  const currentTimeTask = settings.find(
+    (item) => item.id === 'input-time-tomato'
+  );
+
   //константа времени на один таймер задачи
-  const TIME_TASK = 25;
+  const TIME_TASK = Number(currentTimeTask?.time) || 25;
   //полуаем все задачи из store
   const tasks: ITaskProps[] = useAppSelector(selectTask);
   //получаем сколько всего помидорок у задач и умножаем на минуты для одного таймера

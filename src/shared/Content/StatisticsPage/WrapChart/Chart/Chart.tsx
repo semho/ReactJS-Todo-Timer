@@ -157,7 +157,10 @@ function getPercentages(max: number, value: number): number {
   if (value === undefined) {
     return 1;
   }
+
+  if (max === 0) return 1;
   const ratio = Math.round((value / max) * 100);
+
   if (ratio > 100) return 100;
   if (ratio < 1) return 1;
 

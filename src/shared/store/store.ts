@@ -2,6 +2,7 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import tasksReducer from './slices/tasks';
 import statisticsReducer from './slices/statistics';
+import settingsReducer from './slices/settings';
 
 //MIDDLEWARE
 //тут в localStore
@@ -24,6 +25,7 @@ export const store = configureStore({
   reducer: {
     tasks: tasksReducer,
     statistics: statisticsReducer,
+    settings: settingsReducer,
   },
   preloadedState: reHydrateStore(),
   middleware: (getDefaultMiddleware) =>

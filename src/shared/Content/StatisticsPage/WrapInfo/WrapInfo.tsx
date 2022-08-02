@@ -1,4 +1,9 @@
 import React from 'react';
+import { useAppSelector } from '../../../../hooks/hooksStore';
+import {
+  ChangeSettingState,
+  selectSettings,
+} from '../../../store/slices/settings';
 import { CellStatistics } from './CellStatistics';
 import './wrapinfo.css';
 
@@ -16,8 +21,12 @@ interface IInfoProps {
 }
 
 export function WrapInfo({ day }: IInfoProps) {
+  const settings: ChangeSettingState[] = useAppSelector(selectSettings);
+  const currentTimeTask = settings.find(
+    (item) => item.id === 'input-time-tomato'
+  );
   //константа времени на одну помидорку в секундах
-  const TIME_TASK = 25 * 60;
+  const TIME_TASK = (Number(currentTimeTask?.time) || 25) * 60;
   //количество выполненных помидорок на константу времени
   const timeForTomato = TIME_TASK * day.countFinishedTomato;
   //посчитаем фокус (отношение времени работы с таймером ко времени, потраченному на законченные «помидорки»)

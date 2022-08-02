@@ -1,0 +1,11 @@
+.cell__wrap-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cell__settings-title {
+  font-family: 'SF UI';
+  line-height: 33px;
+  font-weight: 700;
+}

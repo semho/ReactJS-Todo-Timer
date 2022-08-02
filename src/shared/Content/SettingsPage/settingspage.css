@@ -14,7 +14,7 @@
 .settings-page__wrap-settings {
   display: grid;
   grid-template-columns: 405px 32px 405px 32px 405px;
-  grid-template-rows: 179px 32px 179px;
+  grid-template-rows: 220px 32px 220px;
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
@@ -57,9 +57,6 @@
   transition: color, background-color 0.3s linear;
 }
 
-.cell__title {
-  margin-bottom: 15px;
-  font-family: 'SF UI';
-  line-height: 33px;
-  font-weight: 700;
+.cell-setting input {
+  margin-bottom: 20px;
 }

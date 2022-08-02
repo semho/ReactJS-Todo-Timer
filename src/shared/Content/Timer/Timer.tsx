@@ -12,6 +12,10 @@ import { ToastContainer, toast } from 'react-toast';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const notification = require('../../../audio/notification.wav');
 import './timer.css';
+import {
+  ChangeSettingState,
+  selectSettings,
+} from '../../store/slices/settings';
 
 interface ITaskProps {
   text?: string;
@@ -21,10 +25,25 @@ interface ITaskProps {
 }
 
 export function Timer() {
-  const TIME_TASK = 25; //время работы одной помидоры
-  const TIME_REST_SHORT = 5; //время короткого перерыва
-  const TIME_REST_LONG = 30; //время длинного перерыва
-  const POSITION_REST_LONG = 4; //позиция длинного отдыха
+  //вытаскиваем настройки из Redux и передаем их константам
+  const settings: ChangeSettingState[] = useAppSelector(selectSettings);
+  const currentTimeTask = settings.find(
+    (item) => item.id === 'input-time-tomato'
+  );
+  const currentRestShort = settings.find(
+    (item) => item.id === 'input-time-short'
+  );
+  const currentRestLong = settings.find(
+    (item) => item.id === 'input-time-long'
+  );
+  const currentRestLongPosition = settings.find(
+    (item) => item.id === 'input-position-long'
+  );
+
+  const TIME_TASK = Number(currentTimeTask?.time) || 25; //время работы одной помидоры
+  const TIME_REST_SHORT = Number(currentRestShort?.time) || 5; //время короткого перерыва
+  const TIME_REST_LONG = Number(currentRestLong?.time) || 30; //время длинного перерыва
+  const POSITION_REST_LONG = Number(currentRestLongPosition?.time) || 4; //позиция длинного отдыха
   //подключаем store
   const dispatch = useAppDispatch();
 
