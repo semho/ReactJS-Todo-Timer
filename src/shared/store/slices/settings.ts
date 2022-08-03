@@ -3,12 +3,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
 /**
  * интерфейс хранения данных настроек
- * @param id - строка с id input на странице настроек
+ * @param id - строка с переданным id настройки на странице настроек
  * @param time - число в котором передаем минуты
+ * @param status - состояние настройки
  */
 export interface ChangeSettingState {
   id: string;
   time?: number | string;
+  status?: boolean;
 }
 
 interface SettingsState {
@@ -51,12 +53,33 @@ export const storeSettings = createSlice({
         state.settings.push(action.payload);
       }
     },
+    changeStatusSettings: (
+      state,
+      action: PayloadAction<ChangeSettingState>
+    ) => {
+      let isExist = false;
+      state.settings = state.settings.map((item) => {
+        if (item.id === action.payload.id) {
+          isExist = true;
+          return {
+            ...item,
+            status: action.payload.status,
+          };
+        }
+        return item;
+      });
+
+      if (!isExist) {
+        state.settings.push(action.payload);
+      }
+    },
   },
 });
 
-//экшены задач
-export const { changeTimeSettings } = storeSettings.actions;
-//стейты задач
+//экшены настроект
+export const { changeTimeSettings, changeStatusSettings } =
+  storeSettings.actions;
+//стейты настроект
 export const selectSettings = (state: RootState) => state.settings.settings;
 //выгружаем редьюсер для главного стора
 export default storeSettings.reducer;

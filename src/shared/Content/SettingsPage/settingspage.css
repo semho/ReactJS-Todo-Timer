@@ -60,3 +60,9 @@
 .cell-setting input {
   margin-bottom: 20px;
 }
+
+.cell-setting__notification-title {
+  font-family: 'SF UI';
+  line-height: 33px;
+  font-weight: 700;
+}

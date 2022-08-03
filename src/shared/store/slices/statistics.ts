@@ -70,9 +70,9 @@ export const storeStatistics = createSlice({
   },
 });
 
-//экшены задач
+//экшены статистики
 export const { addDayStatistics } = storeStatistics.actions;
-//стейты задач
+//стейты статистики
 export const selectStatistics = (state: RootState) =>
   state.statistics.statistics;
 //выгружаем редьюсер для главного стора

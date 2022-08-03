@@ -39,6 +39,7 @@ export function Timer() {
   const currentRestLongPosition = settings.find(
     (item) => item.id === 'input-position-long'
   );
+  const currentStatusBtn = settings.find((item) => item.id === 'btn');
 
   const TIME_TASK = Number(currentTimeTask?.time) || 25; //время работы одной помидоры
   const TIME_REST_SHORT = Number(currentRestShort?.time) || 5; //время короткого перерыва
@@ -142,10 +143,10 @@ export function Timer() {
     showTimeInDOM(boxMinutes, boxSeconds, timerMinutes, timerSeconds);
     //если время закончилось, останавливаем счетчик
     if (count <= 0) {
-      if (task?.count !== tomatoNumber) {
+      if (task?.count !== tomatoNumber && !currentStatusBtn?.status) {
         isRest
-          ? toast.success('Время перерыва истекло!')
-          : toast.success('Время работы истекло!');
+          ? toast('Время перерыва истекло!', { backgroundColor: '#a8b64f' })
+          : toast('Время работы истекло!', { backgroundColor: '#a8b64f' });
       }
 
       pomodoroIsOver();
