@@ -9,7 +9,6 @@ interface ICountProps {
 }
 
 export function CountTomato({ count }: ICountProps) {
-  let component = <NoTomatoesIcon />;
   //Прописываем склонение слов для помидор
   const arrTomato: [string, string, string] = [
     'помидор',
@@ -17,11 +16,12 @@ export function CountTomato({ count }: ICountProps) {
     'помидоров',
   ];
 
-  if (count && count > 0) {
-    component = getTomatoes(count, arrTomato);
-  }
-
-  return <div className="count-tomato">{component}</div>;
+  return (
+    <div className="count-tomato">
+      {count && count > 0 && getTomatoes(count, arrTomato)}
+      {!count && <NoTomatoesIcon />}
+    </div>
+  );
 }
 
 function getTomatoes(count: number, arr: [string, string, string]) {

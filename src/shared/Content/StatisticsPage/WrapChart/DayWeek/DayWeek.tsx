@@ -8,24 +8,18 @@ interface IDayProps {
 }
 
 export function DayWeek({ day, time }: IDayProps) {
-  let component: any = 'Нет данных';
-
-  if (time) {
-    component = getFullTime(time);
-  }
-
   return (
     <div className="day-week">
       <h4 className="day-week__title">{day}</h4>
-      <div className="day-week__text">{component}</div>
-    </div>
-  );
-}
 
-function getFullTime(time: number) {
-  return (
-    <div>
-      Вы работали над задачей в течение <span>{getTime(time)}</span>
+      <div className="day-week__text">
+        {time && (
+          <div>
+            Вы работали над задачей в течение <span>{getTime(time)}</span>
+          </div>
+        )}
+        {!time && 'Нет данных'}
+      </div>
     </div>
   );
 }
