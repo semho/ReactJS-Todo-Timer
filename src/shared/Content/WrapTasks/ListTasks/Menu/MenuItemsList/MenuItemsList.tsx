@@ -1,10 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch } from '../../../../../../hooks/hooksStore';
-import {
-  addTimeTask,
-  changeTask,
-  downTimeTask,
-} from '../../../../../store/slices/tasks';
+import { addTimeTask, downTimeTask } from '../../../../../store/slices/tasks';
 import { DownIcon } from '../../../../../Icons/DownIcon';
 import { EIcons, Icon } from '../../../../../Icons/Icon';
 import { useNavigate } from 'react-router-dom';
@@ -40,7 +36,7 @@ export function MenuItemsList({ idTask }: IMenuItemsListProps) {
       //уберем блокировку
       (btnDown as HTMLButtonElement).disabled = false;
     }
-  }, []);
+  }, [idTask]);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -58,27 +54,34 @@ export function MenuItemsList({ idTask }: IMenuItemsListProps) {
 
   function changeTitle() {
     navigate(`/tasks/${idTask}?method=put`);
-    // dispatch(changeTask(idTask));
   }
 
   return (
     <div className="menuItemsList">
-      <button className="menuItem" onClick={upTime}>
-        <Icon name={EIcons.up} size={18} color={'#A8B64F'} />
-        Увеличить
-      </button>
-      <button className="menuItem menuItem__down" onClick={downTime}>
-        <DownIcon />
-        Уменьшить
-      </button>
-      <button className="menuItem" onClick={changeTitle}>
-        <Icon name={EIcons.edit} size={18} color={'#A8B64F'} />
-        Редактировать
-      </button>
-      <button className="menuItem" onClick={deleteTask}>
-        <Icon name={EIcons.delete} size={18} color={'#A8B64F'} />
-        Удалить
-      </button>
+      <div className="menuItemWrap">
+        <button className="menuItem" onClick={upTime}>
+          <Icon name={EIcons.up} size={18} color={'#A8B64F'} />
+          Увеличить
+        </button>
+      </div>
+      <div className="menuItemWrap">
+        <button className="menuItem menuItem__down" onClick={downTime}>
+          <DownIcon />
+          Уменьшить
+        </button>
+      </div>
+      <div className="menuItemWrap">
+        <button className="menuItem" onClick={changeTitle}>
+          <Icon name={EIcons.edit} size={18} color={'#A8B64F'} />
+          Редактировать
+        </button>
+      </div>
+      <div className="menuItemWrap">
+        <button className="menuItem" onClick={deleteTask}>
+          <Icon name={EIcons.delete} size={18} color={'#A8B64F'} />
+          Удалить
+        </button>
+      </div>
     </div>
   );
 }

@@ -16,10 +16,13 @@ interface changeTaskState {
 interface TasksState {
   tasks: TaskState[];
 }
-//начальное состояние задачи
+//начальное состояние задачи. Если есть localStore, получаем его данные
 const initialState: TasksState = {
-  tasks: [],
+  tasks: localStorage.getItem('tasks')
+    ? JSON.parse(localStorage.getItem('tasks') || '{}')
+    : [],
 };
+
 /**
  * name - название стейта, будет видно в devTools
  * initialState - передаем начальное состояние в стейт
@@ -78,17 +81,6 @@ export const storeTasks = createSlice({
     /**
      * меняем название задачи по ее id
      */
-    // changeTask: (state, action: PayloadAction<string>) => {
-    //   state.tasks = state.tasks.map((item) => {
-    //     if (item.id === action.payload) {
-    //       return {
-    //         ...item,
-    //         text: 'новый текст',
-    //       };
-    //     }
-    //     return item;
-    //   });
-    // },
     changeTask: (state, action: PayloadAction<changeTaskState>) => {
       state.tasks = state.tasks.map((item) => {
         if (item.id === action.payload.id) {
@@ -108,5 +100,6 @@ export const { addTask, removeTask, addTimeTask, downTimeTask, changeTask } =
   storeTasks.actions;
 //стейты задач
 export const selectTask = (state: RootState) => state.tasks.tasks;
+
 //выгружаем редьюсер для главного стора
 export default storeTasks.reducer;

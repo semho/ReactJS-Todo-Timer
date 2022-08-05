@@ -1,12 +1,11 @@
 .menuItemsList {
-  padding: 11px 15px 0 15px;
+  padding: 6px 0 6px 0;
   margin-bottom: 0;
   cursor: pointer;
 }
 
 .menuItem {
   padding: 0;
-  margin-bottom: 9px;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -31,4 +30,12 @@
 
 .menuItem__down--green svg path {
   fill: var(--green);
+}
+
+.menuItemWrap {
+  padding: 5px 16px;
+}
+
+.menuItemWrap:hover {
+  background-color: var(--grayF4);
 }

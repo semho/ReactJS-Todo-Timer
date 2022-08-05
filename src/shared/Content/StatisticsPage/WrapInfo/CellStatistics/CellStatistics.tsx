@@ -11,26 +11,30 @@ interface ICellProps {
   background?: TColorBack;
   icon: TSVG;
   title: string;
-  text: string;
+  value: number;
+  unitUse?: boolean;
 }
 
 export function CellStatistics({
   background = 'gray',
   icon,
   title,
-  text,
+  value,
+  unitUse = true,
 }: ICellProps) {
   //получаем иконку
   const component = getIconOrUnit(icon, false, background);
   //получаем единицы измерений
   const unit = getIconOrUnit(icon, true);
-  const valueCell = `${text} ${unit}`;
 
   return (
     <div className={`cell cell--${background}`}>
       <div className="cell__content">
         <div className="cell__title">{title}</div>
-        <div className="cell__text">{valueCell}</div>
+        <div className="cell__text">
+          {unit === 'm' ? getTimeFromMinutes(value) : value}
+          {unitUse ? unit : ''}
+        </div>
       </div>
       {component}
     </div>
@@ -49,10 +53,24 @@ function getIconOrUnit(icon: string, unit: boolean, background?: string) {
       if (unit) return '%';
       return <FocusIcon background={background} />;
     case 'time':
-      if (unit) return 'м';
+      if (unit) return 'm';
       return <TimeIcon background={background} />;
     case 'stop':
       if (unit) return '';
       return <StopIcon background={background} />;
   }
+}
+
+/**
+ * Функция преобразовывает число в минутах в строку в формате "ХХ час ХХ мин"
+ * @param min - принимает число минут всего
+ * @returns - возвращает строку вида (часы минуты)
+ */
+function getTimeFromMinutes(min: number): string {
+  const hours = Math.trunc(min / 60 / 60);
+  const minutes = Math.trunc(min / 60) % 60;
+  if (hours === 0) {
+    return minutes + 'м';
+  }
+  return hours + 'ч ' + minutes + 'м';
 }

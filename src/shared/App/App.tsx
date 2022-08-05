@@ -7,6 +7,7 @@ import { setConfig } from 'react-hot-loader';
 import { Header } from '../Header/Header';
 import { Content } from '../Content/Content';
 import { Outlet, Route } from 'react-router-dom';
+
 //отключить перезагрузку хуков в hot-loader
 // setConfig({
 //   reloadHooks: false,

@@ -5,10 +5,18 @@ type TColor = 'green' | 'gray';
 
 interface IButtonProps {
   variant?: TColor;
+  onClick?: () => void;
+  disabled?: boolean;
+  className: string;
 }
 
-export function AddButton({ variant = 'gray' }: IButtonProps) {
-  const colorBtn = `btn-add-time btn-add-time--${variant}`;
+export function AddButton({
+  variant = 'gray',
+  onClick,
+  disabled,
+  className,
+}: IButtonProps) {
+  const colorBtn = `btn-add-time btn-add-time--${variant} ${className}`;
   let fill = '#C4C4C4';
 
   if (variant == 'green') {
@@ -16,7 +24,7 @@ export function AddButton({ variant = 'gray' }: IButtonProps) {
   }
 
   return (
-    <button className={colorBtn}>
+    <button className={colorBtn} onClick={onClick} disabled={disabled}>
       <svg
         width="50"
         height="50"
